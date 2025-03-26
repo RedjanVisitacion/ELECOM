@@ -62,3 +62,69 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("#vote form");
+    const resultsSection = document.querySelector("#results p");
+    const voterNameInput = document.querySelector("#voter-name");
+    const candidateSelect = document.querySelector("#candidate");
+
+    // Retrieve votes from localStorage or initialize
+    let votes = JSON.parse(localStorage.getItem("votes")) || {
+        candidate1: 0,
+        candidate2: 0
+    };
+
+    // Function to update results display
+    function updateResults() {
+        resultsSection.innerHTML = `
+            <strong>Current Votes:</strong><br>
+            🥇 Silver Mae S. Heyrana: ${votes.candidate1} votes<br>
+            🥇 Redjan Phil S. Visitacion: ${votes.candidate2} votes
+        `;
+    }
+
+    // Handle voting submission
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const voterName = voterNameInput.value.trim();
+        const selectedCandidate = candidateSelect.value;
+
+        if (!voterName) {
+            alert("Please enter your name.");
+            return;
+        }
+
+        if (selectedCandidate === "candidate0") {
+            alert("Please select a candidate.");
+            return;
+        }
+
+        // Prevent duplicate votes (basic check)
+        if (localStorage.getItem(`voted_${voterName}`)) {
+            alert("You have already voted!");
+            return;
+        }
+
+        // Register the vote
+        if (selectedCandidate === "candidate1") {
+            votes.candidate1++;
+        } else if (selectedCandidate === "candidate2") {
+            votes.candidate2++;
+        }
+
+        // Save votes and mark voter as voted
+        localStorage.setItem("votes", JSON.stringify(votes));
+        localStorage.setItem(`voted_${voterName}`, true);
+
+        alert("Thank you for voting!");
+        voterNameInput.value = ""; // Reset input field
+        candidateSelect.value = "candidate0"; // Reset selection
+
+        updateResults(); // Refresh results
+    });
+
+    updateResults(); // Load results on page load
+});

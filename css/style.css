@@ -5,9 +5,10 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    overflow-x: hidden;
 }
 
-/* Start Header */
+/* Header */
 .header {
     position: fixed;
     top: 0;
@@ -19,14 +20,14 @@ body {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Container inside header */
 .header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
-/* Navigation Bar */
+/* Navigation */
 .header nav {
     display: flex;
     justify-content: space-between;
@@ -39,14 +40,33 @@ body {
     margin-left: 15px;
 }
 
-/* Navigation Links */
-.header nav .nav-links {
+.hlogo {
+    max-width: 150px;  /* Adjust as needed */
+    height: auto;
+    transition: max-width 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .hlogo {
+        max-width: 120px; /* Slightly smaller on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .hlogo {
+        max-width: 100px; /* Even smaller on mobile */
+    }
+}
+
+
+
+.nav-links {
     display: flex;
     gap: 20px;
     margin-right: 20px;
 }
 
-.header nav .nav-links a {
+.nav-links a {
     color: #fdfafa;
     font-weight: 500;
     padding: 10px 15px;
@@ -55,15 +75,14 @@ body {
     transition: color 0.3s ease;
 }
 
-.header nav .nav-links a:hover,
-.header nav .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: #1abc9c;
 }
 
 /* Active Header on Scroll */
 .header.active {
     background-color: #fff;
-    border-bottom: 1px solid rgba(114, 114, 114, 0.3);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -76,9 +95,9 @@ body {
     color: #1abc9c;
 }
 
-/* Burger Menu Styling */
+/* Burger Menu */
 .burger {
-    display: none; /* Initially hidden on larger screens */
+    display: none;
     flex-direction: column;
     cursor: pointer;
     margin-right: 30px;
@@ -93,7 +112,7 @@ body {
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* Animate Burger when active */
+/* Burger Animation */
 .burger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -107,7 +126,7 @@ body {
 }
 
 /* Responsive Navigation */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
     .nav-links {
         position: absolute;
         top: 60px;
@@ -134,17 +153,44 @@ body {
     }
 }
 
-
 /* Main Content */
 .homeL {
     margin-top: 80px;
-    padding: 20px;
-    text-align: center;
+    max-width: 100%;  /* Ensures the image never exceeds its container */
+    height: auto;      /* Maintains aspect ratio */
+
 }
+
+.homVid {
+    width: 100%;       /* Make the video take the full width of its container */
+    max-width: 100%;   /* Prevents overflow */
+    height: auto;      /* Maintains aspect ratio */
+    display: block;    /* Prevents extra spacing issues */
+    object-fit: cover; /* Ensures the video fills the container properly */
+}
+
+@media (max-width: 1024px) {
+    .homVid {
+        height: 400px; /* Adjust height for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .homVid {
+        height: 300px; /* Adjust height for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .homVid {
+        height: 200px; /* Reduce height for mobile screens */
+    }
+}
+
 
 /* Section Layout */
 section {
-    padding: 80px 20px;
+    padding: 60px 5%;
     text-align: center;
 }
 
@@ -207,15 +253,19 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    position: relative;
-    bottom: 0;
     width: 100%;
 }
 
-/* Adjustments for Small Screens */
-@media (max-width: 768px) {
-    .header nav .nav-links {
+/* Full Responsiveness */
+@media (max-width: 1024px) {
+    .header .container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .nav-links {
         flex-direction: column;
+        width: 100%;
         align-items: center;
     }
 
@@ -226,5 +276,28 @@ footer {
 
     .candidate {
         width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 8px 10px;
+    }
+
+    .header nav img {
+        height: 40px;
+    }
+
+    .burger {
+        margin-right: 10px;
+    }
+
+    .candidate {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    section {
+        padding: 40px 10px;
     }
 }
