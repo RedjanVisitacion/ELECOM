@@ -3,12 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/icon.png"> 
-     
-    <link rel="stylesheet" href="">
-    <title>ELECTORAL COMMISSION</title>
+    <title>ELECOM - Electoral Commission</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/icon.png">
 </head>
 <body>
+    <header>
+        <h1>ELECOM - Electoral Commission</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#candidates">Candidates</a></li>
+                <li><a href="#vote">Vote</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
     
+    <section id="home">
+        <h2>Welcome to ELECOM</h2>
+        <p>Your trusted platform for fair and transparent elections.</p>
+    </section>
+    
+    <section id="candidates">
+        <h2>Meet the Candidates</h2>
+        <div class="candidate-list">
+            <div class="candidate">
+                <img src="img/candidate1.jpg" alt="Candidate 1">
+                <h3>Candidate Name 1</h3>
+                <p>Party: Party A</p>
+            </div>
+            <div class="candidate">
+                <img src="img/candidate2.jpg" alt="Candidate 2">
+                <h3>Candidate Name 2</h3>
+                <p>Party: Party B</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="vote">
+        <h2>Vote Now</h2>
+        <form>
+            <label for="voter-name">Your Name:</label>
+            <input type="text" id="voter-name" required>
+            <label for="candidate">Select Candidate:</label>
+            <select id="candidate">
+                <option value="candidate1">Candidate Name 1</option>
+                <option value="candidate2">Candidate Name 2</option>
+            </select>
+            <button type="submit">Submit Vote</button>
+        </form>
+    </section>
+    
+    <section id="results">
+        <h2>Election Results</h2>
+        <p>Results will be announced soon.</p>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Email: contact@elecom.com</p>
+        <p>Phone: +123 456 7890</p>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 ELECOM. All rights reserved.</p>
+    </footer>
 </body>
 </html>
