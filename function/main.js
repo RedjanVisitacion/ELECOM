@@ -6,55 +6,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!btnMenu || !navLinks) return; // Exit if elements are missing
 
-    // Function to toggle the mobile menu
+    // Function to show/hide the menu
     function toggleMenu() {
         navLinks.classList.toggle("active");
         btnMenu.classList.toggle("active");
     }
 
-    // Add click event to the burger button
-    btnMenu.addEventListener("click", toggleMenu);
+    // Click event on burger button to toggle menu
+    btnMenu.addEventListener("click", function (e) {
+        e.stopPropagation(); // Prevents the menu from closing immediately
+        toggleMenu();
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (e) {
+        if (!navLinks.contains(e.target) && !btnMenu.contains(e.target)) {
+            navLinks.classList.remove("active");
+            btnMenu.classList.remove("active");
+        }
+    });
 
     // Close menu when clicking a navigation link
     navItems.forEach(link => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("active"); // Hide menu
-            btnMenu.classList.remove("active"); // Reset burger animation
+        link.addEventListener("click", function (e) {
+            navLinks.classList.remove("active");
+            btnMenu.classList.remove("active");
+
+            // Smooth scroll to section
+            let targetId = this.getAttribute("href");
+            if (targetId.startsWith("#")) {
+                e.preventDefault();
+                let targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 50,
+                        behavior: "smooth"
+                    });
+                }
+            }
         });
     });
 
     // Close menu when scrolling
-    window.addEventListener("scroll", () => {
+    window.addEventListener("scroll", function () {
         if (navLinks.classList.contains("active")) {
-            navLinks.classList.remove("active"); // Hide menu
-            btnMenu.classList.remove("active"); // Reset burger animation
+            navLinks.classList.remove("active");
+            btnMenu.classList.remove("active");
         }
 
-        // Change header style on scroll
+        // Change header style when scrolling
         if (window.scrollY >= 100) {
             header.classList.add('active');
         } else {
             header.classList.remove('active');
         }
-    });
-
-    // Smooth Scroll with Delay
-    navItems.forEach(link => {
-        link.addEventListener("click", function (e) {
-            if (this.classList.contains("btn")) {
-                return; // Allow login button to function normally
-            }
-
-            e.preventDefault();
-            let targetId = this.getAttribute("href");
-            let targetSection = document.querySelector(targetId);
-
-            if (targetSection) {
-                window.scrollTo({
-                    top: targetSection.offsetTop - 50,
-                    behavior: "smooth"
-                });
-            }
-        });
     });
 });
