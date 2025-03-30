@@ -41,20 +41,20 @@ body {
 }
 
 .hlogo {
-    max-width: 150px;  /* Adjust as needed */
+    max-width: 150px;
     height: auto;
     transition: max-width 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {
     .hlogo {
-        max-width: 120px; /* Slightly smaller on tablets */
+        max-width: 120px; 
     }
 }
 
 @media (max-width: 480px) {
     .hlogo {
-        max-width: 100px; /* Even smaller on mobile */
+        max-width: 100px;
     }
 }
 
@@ -62,41 +62,41 @@ body {
 
 #about {
     background: #1abc9c;
-    color: white; /* White text for contrast */
-    padding: 50px 20px; /* Space inside the section */
-    text-align: center; /* Center align text */
-    border-radius: 10px; /* Soft rounded corners */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
-    margin: 40px auto; /* Add spacing around the section */
-    width: 80%; /* Limit width for better readability */
+    color: white; 
+    padding: 50px 20px;
+    text-align: center; 
+    border-radius: 10px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    margin: 40px auto; 
+    width: 80%; 
 }
 
 #about h2 {
-    font-size: 2.5rem; /* Bigger heading */
-    margin-bottom: 20px; /* Space below heading */
-    text-transform: uppercase; /* Uppercase styling */
-    letter-spacing: 2px; /* Spacing between letters */
+    font-size: 2.5rem; 
+    margin-bottom: 20px;
+    text-transform: uppercase; 
+    letter-spacing: 2px;
 }
 
 #about p {
-    font-size: 1.2rem; /* Larger paragraph text */
-    margin-bottom: 15px; /* Space below each paragraph */
+    font-size: 1.2rem;
+    margin-bottom: 15px; 
     font-weight: 500;
 }
 
 #about ul {
-    list-style-type: none; /* Remove default bullet points */
+    list-style-type: none; 
     padding: 0;
 }
 
 #about li {
-    font-size: 1.1rem; /* Adjust list font size */
-    margin: 10px 0; /* Space between items */
+    font-size: 1.1rem; 
+    margin: 10px 0; 
     padding: 10px;
-    background: rgba(255, 255, 255, 0.2); /* Transparent white for contrast */
-    border-radius: 5px; /* Rounded corners */
-    display: inline-block; /* Align list items neatly */
-    width: 60%; /* Keep it from stretching too wide */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px; 
+    display: inline-block;
+    width: 60%; 
 }
 
 
