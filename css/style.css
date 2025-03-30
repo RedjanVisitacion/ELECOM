@@ -60,6 +60,47 @@ body {
 
 
 
+#about {
+    background: #1abc9c;
+    color: white; /* White text for contrast */
+    padding: 50px 20px; /* Space inside the section */
+    text-align: center; /* Center align text */
+    border-radius: 10px; /* Soft rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    margin: 40px auto; /* Add spacing around the section */
+    width: 80%; /* Limit width for better readability */
+}
+
+#about h2 {
+    font-size: 2.5rem; /* Bigger heading */
+    margin-bottom: 20px; /* Space below heading */
+    text-transform: uppercase; /* Uppercase styling */
+    letter-spacing: 2px; /* Spacing between letters */
+}
+
+#about p {
+    font-size: 1.2rem; /* Larger paragraph text */
+    margin-bottom: 15px; /* Space below each paragraph */
+    font-weight: 500;
+}
+
+#about ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0;
+}
+
+#about li {
+    font-size: 1.1rem; /* Adjust list font size */
+    margin: 10px 0; /* Space between items */
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.2); /* Transparent white for contrast */
+    border-radius: 5px; /* Rounded corners */
+    display: inline-block; /* Align list items neatly */
+    width: 60%; /* Keep it from stretching too wide */
+}
+
+
+
 .nav-links {
     display: flex;
     gap: 20px;
