@@ -10,10 +10,11 @@
 </head>
 <body>
 
-    <div class="header">
+    <!-- Header Section -->
+    <header class="header">
         <div class="container">
             <nav>
-                <img src="img/icon.png" alt="Logo" class="hlogo">
+                <img src="img/icon.png" alt="ELECOM Logo" class="hlogo">
                 
                 <!-- Burger Menu Button -->
                 <div class="burger">
@@ -26,27 +27,28 @@
                 <div class="nav-links">
                     <a href="#home" class="active">Home</a>
                     <a href="#about">About</a>
-
                     <a href="#candidates">Candidates</a>
                     <a href="#vote">Vote</a>
                     <a href="#results">Results</a>
                     <a href="#contact">Contact</a>
-                    <a href="#" class="btn" onClick="window.open('Elecom.html', '_blank');">Login</a>
+                    <a href="#" class="btn" type="button" onclick="window.open('Elecom.html', '_blank');">Login</a>
                 </div>
             </nav>
         </div>
-    </div>
+    </header>
     
-    
-
-    <section id="home">
-        <img src="img/icon.png" class="homeL">
+    <!-- Home Section -->
+<section id="home">
+    <video src="https://ustpstratcomm.github.io/banner_embed/banner.mp4" autoplay loop muted class="homVid"></video>
+    <div class="home-content">
+        <img src="img/icon.png" class="homeL" alt="ELECOM Logo">
         <h2>Welcome to ELECOM</h2>
         <p>Your trusted platform for fair and transparent elections.</p>
+    </div>
+</section>
 
-        <video src="https://ustpstratcomm.github.io/banner_embed/banner.mp4" autoplay loop muted class="homVid">
-    </section>
-
+    
+    <!-- About Section -->
     <section id="about">
         <h2>About</h2>
         <p><strong>Mission:</strong> To ensure a fair, transparent, and accessible electoral process for all.</p>
@@ -59,7 +61,7 @@
         </ul>
     </section>
     
-    
+    <!-- Candidates Section -->
     <section id="candidates">
         <h2>Meet the Candidates</h2>
         <div class="candidate-list">
@@ -76,36 +78,41 @@
         </div>
     </section>
     
+    <!-- Voting Section -->
     <section id="vote">
         <h2>Vote Now</h2>
         <form>
             <label for="voter-name">Your Name:</label>
             <input type="text" id="voter-name" required>
+
             <label for="candidate">Select Candidate:</label>
             <select id="candidate">
                 <option value="candidate0">Click to select</option>
                 <option value="candidate1">Silver Mae S. Heyrana</option>
                 <option value="candidate2">Redjan Phil S. Visitacion</option>
             </select>
+            
             <button type="submit">Submit Vote</button>
         </form>
     </section>
     
+    <!-- Results Section -->
     <section id="results">
         <h2>Election Results</h2>
-        <p>Results will be announced soon..</p>
+        <p>Results will be announced soon...</p>
     </section>
     
+    <!-- Contact Section -->
     <section id="contact">
         <h2>Contact Us</h2>
         <p>Email: visitacionredjanphils@gmail.com</p>
         <p>Phone: +639 534 181 760</p>
     </section>
     
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 ELECOM. All rights reserved.</p>
     </footer>
-
 
     <script src="function/main.js"></script>
 </body>
