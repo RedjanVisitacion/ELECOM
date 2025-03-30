@@ -40,6 +40,12 @@ body {
     margin-left: 15px;
 }
 
+.headP {
+    border-radius: 50px;
+    border: 1px solid #000;
+}
+
+
 .hlogo {
     max-width: 150px;
     height: auto;
