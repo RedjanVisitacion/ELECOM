@@ -63,45 +63,108 @@
     </section>
     
     <!-- Candidates Section -->
-    <section id="candidates">
-        <h2>Meet the Candidates</h2>
-        <div class="candidate-list">
-            <div class="candidate">
-                <img src="img/c1.png" alt="Candidate 1">
-                <h3>Silver Mae S. Heyrana</h3>
-                <p>Party: SMSH</p>
-            </div>
-            <div class="candidate">
-                <img src="img/c2.jpg" alt="Candidate 2">
-                <h3>Redjan Phil S. Visitacion</h3>
-                <p>Party: RPSV</p>
+<section id="candidates">
+    <h2>Meet the Candidates</h2>
+    
+    <div class="organization" id="usg">
+        <h3>University Student Government (USG)</h3>
+        <div class="position" id="usg-president">
+            <h4>President</h4>
+            <div class="candidate-list">
+                <div class="candidate">
+                    <img src="img/USG.jpg" alt="Candidate 1">
+                    <p>Click to view candidate</p>
+                </div>
+                <!-- More USG President candidates -->
             </div>
         </div>
-    </section>
+        <!-- Add more positions like VP, Secretary, etc. -->
+    </div>
     
-    <!-- Voting Section -->
-    <section id="vote">
-        <h2>Vote Now</h2>
-        <form>
-            <label for="voter-name">Your Name:</label>
-            <input type="text" id="voter-name" required>
+    <div class="organization" id="site">
+        <h3>Society of Information Technology Enthusiasts (SITE)</h3>
+        <div class="position" id="site-president">
+            <h4>President</h4>
+            <div class="candidate-list">
+                <div class="candidate">
+                    <img src="img/SITE.jpg" alt="Candidate 1">
+                    <p>Click to view candidate</p>
+                </div>
+                <!-- More SITE President candidates -->
+            </div>
+        </div>
+        <!-- Add more positions -->
+    </div>
+    
+    <div class="organization" id="pafe">
+        <h3>Prime Association for Future Educators (PAFE)</h3>
+        <div class="position" id="pafe-president">
+            <h4>President</h4>
+            <div class="candidate-list">
+                <div class="candidate">
+                    <img src="img/PAFE.jpg" alt="Candidate 1">
+                    <p>Click to view candidate</p>
+                </div>
+                <!-- More PAFE President candidates -->
+            </div>
+        </div>
+        <!-- Add more positions -->
+    </div>
+    
+    <div class="organization" id="afprotech">
+        <h3>Association of Food Processing Technology (AFPROTECH)</h3>
+        <div class="position" id="afprotech-president">
+            <h4>President</h4>
+            <div class="candidate-list">
+                <div class="candidate">
+                    <img src="img/AFPROTECHS.jpg" alt="Candidate 1">
+                    <p>Click to view candidate</p>
+                </div>
+                <!-- More AFPROTECH President candidates -->
+            </div>
+        </div>
+        <!-- Add more positions -->
+    </div>
+</section>
 
-            <label for="candidate">Select Candidate:</label>
-            <select id="candidate">
-                <option value="candidate0">Click to select</option>
-                <option value="candidate1">Silver Mae S. Heyrana</option>
-                <option value="candidate2">Redjan Phil S. Visitacion</option>
-            </select>
-            
-            <button type="submit">Submit Vote</button>
-        </form>
-    </section>
-    
-    <!-- Results Section -->
-    <section id="results">
-        <h2>Election Results</h2>
-        <p>Results will be announced soon...</p>
-    </section>
+<!-- Voting Section -->
+<section id="vote">
+    <h2>Vote Now</h2>
+    <form>
+        <label for="voter-name">Your Name:</label>
+        <input type="text" id="voter-name" required>
+        
+        <label for="organization">Select Organization:</label>
+        <select id="organization">
+            <option value="">Click to select</option>
+            <option value="usg">University Student Government (USG)</option>
+            <option value="site">Society of Information Technology Enthusiasts (SITE)</option>
+            <option value="pafe">Prime Association for Future Educators (PAFE)</option>
+            <option value="afprotech">Association of Food Processing Technology (AFPROTECH)</option>
+        </select>
+        
+        <label for="position">Select Position:</label>
+        <select id="position">
+            <option value="">Click to select</option>
+            <!-- Positions will be dynamically loaded based on selected organization -->
+        </select>
+        
+        <label for="candidate">Select Candidate:</label>
+        <select id="candidate">
+            <option value="">Click to select</option>
+            <!-- Candidates will be dynamically loaded based on selected position -->
+        </select>
+        
+        <button type="submit">Submit Vote</button>
+    </form>
+</section>
+
+<!-- Results Section -->
+<section id="results">
+    <h2>Election Results</h2>
+    <p>Results will be announced soon...</p>
+</section>
+
     
     <!-- Contact Section -->
     <section id="contact">
