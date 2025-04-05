@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ELECOM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <link rel="icon" href="img/icon.png">
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link rel="stylesheet" href="css/body.css"/>
+  <link rel="stylesheet" href="css/calendar.css">
+</head>
+<style>
+  /* Action Buttons Styling */
+.action-buttons {
+    margin-top: 40px;
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.action-btn {
+    background-color: #0777c2;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: #023f64;
+}
+
+.action-btn i {
+    font-size: 1.2rem;
+}
+
+</style>
+
+<body>
+
+  <!-- Sticky Header -->
+  <div class="sticky-header">
+    <!-- Menu Toggle for Mobile -->
+    <button class="menu-icon" onclick="toggleMenu()">
+      <img src="img/icon.png" alt="ELECOM Logo">
+    </button>
+    <p class="orgName">Electoral Commission</p>
+
+    <div class="profile-section">
+        <div class="profile-dropdown">
+            <img class="profile" src="img/profile.png" alt="Profile Picture" />
+            <p class="names">VISITACION REDJAN PHIL S.</p>
+        </div>
+        <!-- Dropdown menu -->
+        <div class="dropdown-menu">
+            <a href="#"><i class="fas fa-user"></i> Profile</a>
+            <a href="Elecom.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+  </div>
+  
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <!-- Sidebar Toggle Button -->
+    <button class="toggle-icon" onclick="toggleSidebar()">
+      <i class="fas fa-angle-left"></i>
+    </button>
+    <h2>Dashboard</h2>
+    <ul>
+      <li><i class="fas fa-house-user"></i> <span>Home</span></li>
+      <li><i class="fas fa-address-card"></i> <span>About</span></li>
+      <li><i class="fas fa-users"></i> <span>Candidates</span></li>
+      <li><i class="fas fa-vote-yea"></i> <span>Vote</span></li>
+      <li><i class="fas fa-chart-bar"></i> <span>Result</span></li>
+      <li><i class="fas fa-envelope"></i> <span>Contact</span></li>
+      <li><i class="fas fa-question-circle"></i> <span>Help</span></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Welcome to Elecom</h1>
+    <p>Your trusted platform for fair and transparent elections.</p>
+
+    <!-- About Us Section -->
+    <section class="about-us">
+      <h2>About ELECOM</h2>
+      <p>The Electoral Commission (ELECOM) is an independent body tasked with overseeing elections in the country. Our primary responsibility is to ensure that elections are fair, transparent, and conducted in compliance with the law.</p>
+    </section>
+
+    <!-- Mission Statement -->
+    <section class="mission">
+      <h2>Our Mission</h2>
+      <p>To provide an efficient and credible electoral process that reflects the will of the people, ensuring the democratic process is safeguarded at all levels.</p>
+    </section>
+
+    <!-- Upcoming Elections -->
+    <section class="upcoming-elections">
+      <h2>Upcoming Elections</h2>
+      <p>Stay informed about the upcoming electoral events. We ensure that every voter is given the opportunity to participate in fair and just elections.</p>
+      <ul>
+        <li><strong>Presidential Election:</strong> November 2025</li>
+        <li><strong>Local Elections:</strong> May 2026</li>
+        <li><strong>Special Elections:</strong> August 2025</li>
+      </ul>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="contact-us">
+      <h2>Contact Us</h2>
+      <p>Have questions? Need assistance? Reach out to us at:</p>
+      <p>Email: <a href="mailto:support@elecom.gov">support@elecom.gov</a></p>
+      <p>Phone: +1 (800) 123-4567</p>
+    </section>
+
+    <!-- Action Buttons for Candidates, Results, and Votes -->
+    <section class="action-buttons">
+      <h2>Quick Access</h2>
+      <div class="button-container">
+        <button class="action-btn" onclick="window.location.href='candidates.html'">
+          <i class="fas fa-users"></i> Candidates
+        </button>
+        <button class="action-btn" onclick="window.location.href='results.html'">
+          <i class="fas fa-chart-bar"></i> Results
+        </button>
+        <button class="action-btn" onclick="window.location.href='vote.html'">
+          <i class="fas fa-vote-yea"></i> Vote
+        </button>
+      </div>
+    </section>
+
+    <div class="calendar">
+      <header>
+        <h2 id="month-year"></h2>
+        <div class="nav">
+          <button id="prev">‹</button>
+          <button id="today">Today</button>
+          <button id="next">›</button>
+        </div>          
+      </header>
+      <div class="days">
+        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+        <div>Thu</div><div>Fri</div><div>Sat</div>
+      </div>
+      <div class="dates" id="dates"></div>
+    </div>
+  </div>
+
+  <script src="function/dashboard.js"></script>
+  <script src="function/calendar.js"></script>
+</body>
+</html>

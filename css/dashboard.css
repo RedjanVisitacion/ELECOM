@@ -1,3 +1,8 @@
+:root {
+    --color-black: black;
+}
+
+
 /* General styles */
 * {
     margin: 0;
@@ -16,7 +21,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: #2c3e50;
+    background: var(--color-black);
     z-index: 1200;
     padding: 10px 20px;
     display: flex;
@@ -94,7 +99,7 @@ body {
     position: absolute;
     top: 40px;
     right: 0;
-    background-color: #34495e;
+    background-color: var(--color-black);
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -116,13 +121,13 @@ body {
 }
 
 .dropdown-menu a:hover {
-    background-color: #2c3e50;
+    background-color: gray;
 }
 
 /* Sidebar */
 .sidebar {
     width: 250px;
-    background: #2c3e50;
+    background: #364150;
     color: white;
     padding: 20px;
     height: 100vh;
@@ -164,7 +169,7 @@ body {
 }
 
 .sidebar ul li:hover {
-    background: #34495e;
+    background: gray;
 }
 
 .sidebar.mini ul li span {
@@ -178,7 +183,7 @@ body {
     font-size: 18px;
     background: none;
     border: none;
-    color: white;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     z-index: 1100;
     background-color: rgb(15, 15, 15);
