@@ -2,6 +2,7 @@ const monthYear = document.getElementById("month-year");
 const dates = document.getElementById("dates");
 const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
+const todayBtn = document.getElementById("today");
 
 const today = new Date();
 let currentMonth = today.getMonth();
@@ -48,6 +49,12 @@ nextBtn.addEventListener("click", () => {
     currentMonth = 0;
     currentYear++;
   }
+  renderCalendar();
+});
+
+todayBtn.addEventListener("click", () => {
+  currentMonth = today.getMonth();
+  currentYear = today.getFullYear();
   renderCalendar();
 });
 
