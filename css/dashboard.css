@@ -4,11 +4,11 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
   }
-
+  
   body {
     background-color: #f4f4f4;
   }
-
+  
   .sticky-header {
     position: fixed;
     top: 0;
@@ -22,21 +22,18 @@
     justify-content: space-between;
   }
   
-  /* Left side container: menu icon + org name */
   .left-header {
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  /* ELECOM org name */
   .orgName {
     color: white;
     font-family: 'Times New Roman', Times, serif;
-    font-size: 20px;
+    font-size: 23px;
   }
   
-  /* Menu icon */
   .menu-icon {
     background: none;
     border: none;
@@ -47,7 +44,6 @@
     height: 35px;
   }
   
-  /* Right side: profile and name */
   .profile-section {
     display: flex;
     align-items: center;
@@ -64,8 +60,6 @@
     font-family: 'Times New Roman', Times, serif;
   }
   
-  
-
   /* Sidebar */
   .sidebar {
     width: 250px;
@@ -80,13 +74,11 @@
     overflow: hidden;
     z-index: 1000;
   }
-
- 
-
+  
   .sidebar.mini {
     width: 80px;
   }
-
+  
   .sidebar h2 {
     margin-top: 4px;
     margin-bottom: 20px;
@@ -94,15 +86,15 @@
     margin-left: 10px;
     transition: opacity 0.3s ease;
   }
-
+  
   .sidebar.mini h2 {
     opacity: 0;
   }
-
+  
   .sidebar ul {
     list-style: none;
   }
-
+  
   .sidebar ul li {
     padding: 15px;
     cursor: pointer;
@@ -111,15 +103,15 @@
     gap: 10px;
     white-space: nowrap;
   }
-
+  
   .sidebar ul li:hover {
     background: #34495e;
   }
-
+  
   .sidebar.mini ul li span {
     display: none;
   }
-
+  
   .toggle-icon {
     position: absolute;
     top: 25px;
@@ -134,29 +126,105 @@
     width: 30px;
     border-radius: 30px;
   }
-
+  
   /* Main Content */
   .main-content {
     margin-left: 250px;
     padding: 80px 20px 20px 20px;
     transition: margin-left 0.3s ease;
   }
-
+  
   .sidebar.mini ~ .main-content {
     margin-left: 80px;
   }
-
+  
+  /* Media Queries */
+  @media (max-width: 1024px) {
+    .sticky-header {
+      padding: 10px 15px;
+    }
+  
+    .orgName {
+      font-size: 20px; /* Reduced font size for medium screens */
+    }
+  
+    .profile-section .names {
+      font-size: 14px; /* Adjust profile name size */
+    }
+  
+    .sidebar {
+      width: 200px;
+    }
+  
+    .main-content {
+      margin-left: 200px;
+    }
+  
+    .sidebar.mini ~ .main-content {
+      margin-left: 80px;
+    }
+  }
+  
   @media (max-width: 768px) {
+    .sticky-header {
+      padding: 10px 10px;
+    }
+  
+    .orgName {
+      font-size: 18px; /* Further reduce font size on smaller screens */
+    }
+  
+    .menu-icon img {
+      height: 30px;
+    }
+  
+    .profile-section .names {
+      font-size: 12px; /* Reduce name font size */
+    }
+  
     .sidebar {
       left: -250px;
+      width: 100%;
     }
-
+  
     .sidebar.show {
       left: 0;
     }
-
+  
     .main-content {
       margin-left: 0;
-      padding: 80px 20px 20px 20px;
+      padding: 80px 10px 20px 10px;
     }
   }
+  
+  @media (max-width: 480px) {
+    .sticky-header {
+      padding: 8px 10px;
+    }
+  
+    .orgName {
+      font-size: 16px; /* Even smaller font size on very small screens */
+    }
+  
+    .menu-icon img {
+      height: 25px;
+    }
+  
+    .profile-section .names {
+      font-size: 10px; /* Further reduce profile name size */
+    }
+  
+    .sidebar {
+      width: 100%;
+      left: -100%;
+    }
+  
+    .sidebar.show {
+      left: 0;
+    }
+  
+    .main-content {
+      padding: 80px 5px 20px 5px;
+    }
+  }
+  
