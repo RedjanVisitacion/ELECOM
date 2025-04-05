@@ -81,7 +81,10 @@ body {
 /* Hover effect on profile name */
 .profile-section .names:hover {
     color: #ffd05b; /* Gold color on hover */
-    font-weight: bold;
+}
+
+.profile-section .profile:hover{
+    border: solid #ffd05b 1px;
 }
 
 /* Dropdown Menu Styles */
