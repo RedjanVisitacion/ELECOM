@@ -1,68 +1,102 @@
-
-  .calendar {
-    width: 380px;
+.calendar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    width: 100%;
+    max-width: 380px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     padding: 20px;
-  }
+    box-sizing: border-box;
+    margin-right: 10px;
+    z-index: 9999;
+}
 
-  .calendar header {
+.calendar header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 20px;
-  }
+}
 
-  .calendar header h2 {
+.calendar header h2 {
     font-size: 1.5rem;
     margin: 0;
-  }
+    flex-grow: 1;
+}
 
-  .calendar header .nav {
+.calendar header .nav {
     display: flex;
     gap: 10px;
-  }
+}
 
-  .calendar header button {
+.calendar header button {
     background: #3498db;
     color: white;
     border: none;
     border-radius: 6px;
     padding: 5px 10px;
     cursor: pointer;
+    font-size: 1rem;
     transition: background 0.3s;
-  }
+}
 
-  .calendar header button:hover {
+.calendar header button:hover {
     background: #2980b9;
-  }
+}
 
-  .days {
+.days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     font-weight: bold;
     color: #555;
-  }
+    font-size: 0.9rem;
+}
 
-  .dates {
+.dates {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     gap: 10px;
     padding-top: 10px;
-  }
+}
 
-  .dates div {
+.dates div {
     padding: 10px 0;
     border-radius: 8px;
     background-color: #ecf0f1;
     color: #333;
+    font-size: 0.95rem;
     transition: background 0.3s;
-  }
+}
 
-  .dates .today {
+.dates .today {
     background-color: #3498db;
     color: white;
-  }
+}
+
+@media (max-width: 480px) {
+    .calendar {
+        padding: 15px;
+        border-radius: 12px;
+        width: 90%;
+    }
+
+    .calendar header h2 {
+        font-size: 1.2rem;
+    }
+
+    .calendar header button {
+        font-size: 0.9rem;
+        padding: 4px 8px;
+    }
+
+    .days, .dates div {
+        font-size: 0.8rem;
+    }
+}
