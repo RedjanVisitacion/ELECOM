@@ -9,8 +9,7 @@
     background-color: #f4f4f4;
   }
 
-  /* Sticky Header */
-.sticky-header {
+  .sticky-header {
     position: fixed;
     top: 0;
     left: 0;
@@ -23,15 +22,21 @@
     justify-content: space-between;
   }
   
+  /* Left side container: menu icon + org name */
+  .left-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
   /* ELECOM org name */
   .orgName {
     color: white;
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
-    margin-left: 10px;
   }
   
-  /* Menu icon (left side) */
+  /* Menu icon */
   .menu-icon {
     background: none;
     border: none;
@@ -42,7 +47,7 @@
     height: 35px;
   }
   
-  /* Right section: profile image and name */
+  /* Right side: profile and name */
   .profile-section {
     display: flex;
     align-items: center;
@@ -58,6 +63,7 @@
     color: white;
     font-family: 'Times New Roman', Times, serif;
   }
+  
   
 
   /* Sidebar */
