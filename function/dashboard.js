@@ -32,11 +32,21 @@ function toggleMenu() {
     }
   });
 
-
-const profileDropdown = document.querySelector('.profile-dropdown');
+  const profileDropdown = document.querySelector('.profile-dropdown');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 
-profileDropdown.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent any default anchor behavior (if needed)
-    dropdownMenu.classList.toggle('show'); // Toggle the 'show' class to display or hide the menu
-});
+// Function to toggle the dropdown
+function toggleDropdown(event) {
+    event.preventDefault(); // Prevent default anchor behavior (if needed)
+    dropdownMenu.classList.toggle('show');
+}
+
+
+function closeDropdown(event) {
+    if (!profileDropdown.contains(event.target)) {
+        dropdownMenu.classList.remove('show');
+    }
+}
+
+profileDropdown.addEventListener('click', toggleDropdown);
+document.addEventListener('click', closeDropdown);
