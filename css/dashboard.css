@@ -1,3 +1,4 @@
+/* General styles */
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +9,6 @@
 body {
     background-color: #f4f4f4;
 }
-
 
 /* Sticky Header */
 .sticky-header {
@@ -51,15 +51,15 @@ body {
 /* Profile Section Styling */
 .profile-section {
     display: flex;
-    align-items: center; /* Ensures profile and name stay aligned on the same line */
-    gap: 10px; /* Adds space between the profile image and name */
+    align-items: center;
+    gap: 10px;
     position: relative;
 }
 
 /* Profile Image Styling */
 .profile-section .profile {
     height: 30px;
-    width: 30px; /* Ensures it stays circular */
+    width: 30px;
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
@@ -84,13 +84,13 @@ body {
     color: #ffd05b; /* Gold color on hover */
 }
 
-.profile-section .profile:hover{
+.profile-section .profile:hover {
     border: solid #ffd05b 1px;
 }
 
 /* Dropdown Menu Styles */
 .dropdown-menu {
-    display: none; /* Initially hidden */
+    display: none;
     position: absolute;
     top: 40px;
     right: 0;
@@ -104,7 +104,7 @@ body {
 }
 
 .dropdown-menu.show {
-    display: block; /* Display the menu */
+    display: block;
     opacity: 1;
 }
 
@@ -199,33 +199,6 @@ body {
 
 /* Media Queries for Responsiveness */
 
-/* For medium screens */
-@media (max-width: 1024px) {
-    .sticky-header {
-        padding: 10px 15px;
-    }
-
-    .orgName {
-        font-size: 20px;
-    }
-
-    .profile-section .names {
-        font-size: 14px;
-    }
-
-    .sidebar {
-        width: 200px;
-    }
-
-    .main-content {
-        margin-left: 200px;
-    }
-
-    .sidebar.mini ~ .main-content {
-        margin-left: 80px;
-    }
-}
-
 /* For smaller tablets and mobile */
 @media (max-width: 768px) {
     .sticky-header {
@@ -275,6 +248,13 @@ body {
 
     .profile-section .names {
         font-size: 10px;
+        display: none; /* Hide the profile name on smartphones */
+    }
+
+    .profile-section .profile {
+        margin-left: 1; 
+        margin-top: 1px;
+        position: sticky;
     }
 
     .sidebar {

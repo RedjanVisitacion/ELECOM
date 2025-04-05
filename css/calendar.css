@@ -82,29 +82,14 @@
 
 @media (max-width: 480px) {
     .calendar {
-        padding: 15px;
-        border-radius: 12px;
-        width: 90%;
-    }
-
-    .calendar header h2 {
-        font-size: 1.2rem;
-    }
-
-    .calendar header button {
-        font-size: 0.9rem;
-        padding: 4px 8px;
-    }
-
-    .days, .dates div {
-        font-size: 0.8rem;
+        display: none; /* Hide the calendar on smartphones */
     }
 }
 
-#today{
+#today {
     background-color: rgba(128, 128, 128, 0.568);
 }
 
-#today:hover{
+#today:hover {
     background-color: gray;
 }
