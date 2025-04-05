@@ -225,7 +225,7 @@ body {
 .nav-links {
     display: flex;
     gap: 20px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .nav-links a {
@@ -262,7 +262,7 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    margin-right: 30px;
+    margin-right: 50px;
     z-index: 1100;
 }
 
