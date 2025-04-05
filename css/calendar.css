@@ -35,7 +35,7 @@
 }
 
 .calendar header button {
-    background: #3498db;
+    background: #0777c2da;
     color: white;
     border: none;
     border-radius: 6px;
@@ -46,7 +46,7 @@
 }
 
 .calendar header button:hover {
-    background: #2980b9;
+    background: #023f64ea;
 }
 
 .days {
@@ -99,4 +99,12 @@
     .days, .dates div {
         font-size: 0.8rem;
     }
+}
+
+#today{
+    background-color: rgba(128, 128, 128, 0.568);
+}
+
+#today:hover{
+    background-color: gray;
 }
