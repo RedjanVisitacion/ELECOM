@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background-color: #f4f4f4;
+  }
+
+  /* Sticky Header */
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #2c3e50;
+    z-index: 1200;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* ELECOM org name */
+  .orgName {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  
+  /* Menu icon (left side) */
+  .menu-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .menu-icon img {
+    height: 35px;
+  }
+  
+  /* Right section: profile image and name */
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .profile-section .profile {
+    height: 35px;
+    border-radius: 50%;
+  }
+  
+  .profile-section .names {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    transition: width 0.3s ease, left 0.3s ease;
+    overflow: hidden;
+    z-index: 1000;
+  }
+
+ 
+
+  .sidebar.mini {
+    width: 80px;
+  }
+
+  .sidebar h2 {
+    margin-top: 4px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    margin-left: 10px;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar.mini h2 {
+    opacity: 0;
+  }
+
+  .sidebar ul {
+    list-style: none;
+  }
+
+  .sidebar ul li {
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+  }
+
+  .sidebar ul li:hover {
+    background: #34495e;
+  }
+
+  .sidebar.mini ul li span {
+    display: none;
+  }
+
+  .toggle-icon {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    font-size: 18px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    z-index: 1100;
+    background-color: rgb(15, 15, 15);
+    width: 30px;
+    border-radius: 30px;
+  }
+
+  /* Main Content */
+  .main-content {
+    margin-left: 250px;
+    padding: 80px 20px 20px 20px;
+    transition: margin-left 0.3s ease;
+  }
+
+  .sidebar.mini ~ .main-content {
+    margin-left: 80px;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      left: -250px;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+
+    .main-content {
+      margin-left: 0;
+      padding: 80px 20px 20px 20px;
+    }
+  }
