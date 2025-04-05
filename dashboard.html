@@ -20,9 +20,19 @@
     <p class="orgName"> Electoral Commission</p>
   
     <div class="profile-section">
-      <img class="profile" src="img/profile.png" alt="Profile Picture" />
-      <p class="names">VISITACION REDJAN PHIL S.</p>
+        <div class="profile-dropdown">
+            <img class="profile" src="img/profile.png" alt="Profile Picture" />
+            <p class="names">VISITACION REDJAN PHIL S.</p>
+        </div>
+        <!-- Dropdown menu -->
+        <div class="dropdown-menu">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </div>
     </div>
+    
+    
+      
   </div>
   
   <!-- Sidebar -->
@@ -46,43 +56,9 @@
   <!-- Main Content -->
   <div class="main-content">
     <h1>Welcome to Elecom</h1>
-    <p>This layout is fully responsive and adjusts based on your screen size!</p>
+    <p>Your trusted platform for fair and transparent elections.</p>
   </div>
 
-  <script>
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("show");
-    }
-
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const toggleIcon = document.querySelector(".toggle-icon i");
-
-      sidebar.classList.toggle("mini");
-
-      if (sidebar.classList.contains("mini")) {
-        toggleIcon.classList.remove("fa-angle-left");
-        toggleIcon.classList.add("fa-angle-right");
-      } else {
-        toggleIcon.classList.remove("fa-angle-right");
-        toggleIcon.classList.add("fa-angle-left");
-      }
-    }
-
-    // Auto-close sidebar on outside click (mobile only)
-    document.addEventListener("click", function (event) {
-      const sidebar = document.getElementById("sidebar");
-      const menuIcon = document.querySelector(".menu-icon");
-
-      if (
-        !sidebar.contains(event.target) &&
-        !menuIcon.contains(event.target) &&
-        window.innerWidth <= 768
-      ) {
-        sidebar.classList.remove("show");
-      }
-    });
-  </script>
+  <script src="function/dashboard.js"></script>
 </body>
 </html>
