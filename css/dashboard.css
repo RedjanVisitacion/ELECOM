@@ -53,6 +53,28 @@ body {
     height: 35px;
 }
 
+
+/* Initially hide all arrows */
+.arrow {
+  display: none;
+  margin-left: 210px; 
+  font-size: 46px;    
+  color: #ffffff;
+  position: absolute;
+}
+
+/* When the list item is active, display the arrow */
+li.active .arrow {
+  display: inline;
+}
+
+/* You can use a Font Awesome icon for the arrow, like this */
+li.active .arrow::before {
+  content: '\2BC7'; /* Right arrow symbol (Unicode) */
+}
+
+
+
 ul {
     list-style: none;
     padding: 0;

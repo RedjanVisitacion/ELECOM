@@ -6,15 +6,18 @@ listItems.forEach(item => {
   item.addEventListener("click", () => {
     // If the clicked item already has the 'active' class, do nothing
     if (!item.classList.contains("active")) {
-      // Remove active class from all items
-      listItems.forEach(li => li.classList.remove("active"));
+      // Remove active class and hide arrows from all items
+      listItems.forEach(li => {
+        li.classList.remove("active");
+        li.querySelector(".arrow").style.display = "none"; // Hide arrow
+      });
       
       // Add active class to the clicked item
       item.classList.add("active");
+      item.querySelector(".arrow").style.display = "inline"; // Show arrow
     }
   });
 });
-
 
 
 
