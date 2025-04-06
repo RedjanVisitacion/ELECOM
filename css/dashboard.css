@@ -54,25 +54,28 @@ body {
 }
 
 
-/* Initially hide all arrows */
+/* Hide all arrows by default */
 .arrow {
-  display: none;
-  margin-left: 215px; 
-  font-size: 46px;    
-  color: #ffffff;
-  position: absolute;
-}
+    display: none;
+    margin-left: 215px; 
+    font-size: 46px;    
+    color: #ffffff;
+    position: absolute;
+  }
+  
+  /* Only on large screens (1024px and up), show arrow when active */
+  @media (min-width: 1024px) {
+    li.active .arrow {
+      display: inline;
+    }
+  
+    li.active .arrow::before {
+      content: '\2BC1'; /* Right arrow symbol (Unicode) */
+    }
+  }
+  
 
-/* When the list item is active, display the arrow */
-li.active .arrow {
-  display: inline;
-}
-
-/* You can use a Font Awesome icon for the arrow, like this */
-li.active .arrow::before {
-  content: '\2BC1'; /* Right arrow symbol (Unicode) */
-}
-
+  
 
 
 ul {

@@ -1,23 +1,39 @@
-// Get all list items
 const listItems = document.querySelectorAll("ul li");
 
 // Add click event to each list item
 listItems.forEach(item => {
-  item.addEventListener("click", () => {
-    // If the clicked item already has the 'active' class, do nothing
+  item.addEventListener("click", (e) => {
+    e.stopPropagation(); // Prevent click from bubbling to document
+
+    const isLargeScreen = window.innerWidth >= 1024;
+
     if (!item.classList.contains("active")) {
-      // Remove active class and hide arrows from all items
       listItems.forEach(li => {
         li.classList.remove("active");
-        li.querySelector(".arrow").style.display = "none"; // Hide arrow
+        const arrow = li.querySelector(".arrow");
+        if (arrow) arrow.style.display = "none";
       });
-      
-      // Add active class to the clicked item
+
       item.classList.add("active");
-      item.querySelector(".arrow").style.display = "inline"; // Show arrow
+
+      // Only show arrow on large screens
+      if (isLargeScreen) {
+        const arrow = item.querySelector(".arrow");
+        if (arrow) arrow.style.display = "inline";
+      }
     }
   });
 });
+
+// If user clicks anywhere else on the page, remove active from all
+document.addEventListener("click", () => {
+  listItems.forEach(li => {
+    li.classList.remove("active");
+    const arrow = li.querySelector(".arrow");
+    if (arrow) arrow.style.display = "none";
+  });
+});
+
 
 
 
