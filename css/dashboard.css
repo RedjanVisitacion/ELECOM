@@ -57,7 +57,7 @@ body {
 /* Initially hide all arrows */
 .arrow {
   display: none;
-  margin-left: 210px; 
+  margin-left: 215px; 
   font-size: 46px;    
   color: #ffffff;
   position: absolute;
@@ -70,7 +70,7 @@ li.active .arrow {
 
 /* You can use a Font Awesome icon for the arrow, like this */
 li.active .arrow::before {
-  content: '\2BC7'; /* Right arrow symbol (Unicode) */
+  content: '\2BC1'; /* Right arrow symbol (Unicode) */
 }
 
 
@@ -97,19 +97,16 @@ ul {
   }
   
   ul li.active {
-    background-color: #3498db; /* Active item background */
+    background-color:  #1caf9a;
     color: white; /* Text color when active */
     margin: 0px;
   }
-  
+
   ul li:hover {
-    background-color: #f0f0f0; /* Hover effect */
-  }
+    background: gray;
+}
   
-  ul li.active:hover {
-    background-color: #2980b9; /* Change hover color for active item */
-  }
-  
+
 
 /* Profile Section Styling */
 .profile-section {
@@ -227,9 +224,7 @@ ul {
     white-space: nowrap;
 }
 
-.sidebar ul li:hover {
-    background: gray;
-}
+
 
 .sidebar.mini ul li span {
     display: none;
