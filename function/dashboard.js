@@ -1,3 +1,23 @@
+// Get all list items
+const listItems = document.querySelectorAll("ul li");
+
+// Add click event to each list item
+listItems.forEach(item => {
+  item.addEventListener("click", () => {
+    // If the clicked item already has the 'active' class, do nothing
+    if (!item.classList.contains("active")) {
+      // Remove active class from all items
+      listItems.forEach(li => li.classList.remove("active"));
+      
+      // Add active class to the clicked item
+      item.classList.add("active");
+    }
+  });
+});
+
+
+
+
 function toggleMenu() {
     const sidebar = document.getElementById("sidebar");
     sidebar.classList.toggle("show");

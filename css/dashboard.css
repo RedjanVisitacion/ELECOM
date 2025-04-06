@@ -53,6 +53,42 @@ body {
     height: 35px;
 }
 
+ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  ul li i {
+    margin-right: 10px;
+  }
+  
+  ul li span {
+    font-size: 16px;
+  }
+  
+  ul li.active {
+    background-color: #3498db; /* Active item background */
+    color: white; /* Text color when active */
+    margin: 0px;
+  }
+  
+  ul li:hover {
+    background-color: #f0f0f0; /* Hover effect */
+  }
+  
+  ul li.active:hover {
+    background-color: #2980b9; /* Change hover color for active item */
+  }
+  
+
 /* Profile Section Styling */
 .profile-section {
     display: flex;
@@ -129,7 +165,7 @@ body {
     width: 250px;
     background: #364150;
     color: white;
-    padding: 20px;
+    padding: 0px;
     height: 100vh;
     position: fixed;
     top: 60px;
@@ -137,17 +173,18 @@ body {
     transition: width 0.3s ease, left 0.3s ease;
     overflow: hidden;
     z-index: 1000;
+   
 }
 
 .sidebar.mini {
-    width: 80px;
+    width: 50px;
 }
 
 .sidebar h2 {
-    margin-top: 4px;
-    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-bottom: 30px;
     font-size: 20px;
-    margin-left: 10px;
+    margin-left: 30px;
     transition: opacity 0.3s ease;
 }
 
@@ -179,7 +216,7 @@ body {
 .toggle-icon {
     position: absolute;
     top: 25px;
-    right: 20px;
+    right: 10px;
     font-size: 18px;
     background: none;
     border: none;

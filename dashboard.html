@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ELECOM</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
-
   <link rel="icon" href="img/icon.png">
   <link rel="stylesheet" href="css/dashboard.css"/>
   <link rel="stylesheet" href="css/body.css"/>
@@ -14,12 +13,12 @@
 <body>
 
   <!-- Sticky Header -->
-<div class="sticky-header">
+  <div class="sticky-header">
     <!-- Menu Toggle for Mobile -->
     <button class="menu-icon" onclick="toggleMenu()">
       <img src="img/icon.png" alt="ELECOM Logo">
     </button>
-    <p class="orgName"> Electoral Commission</p>
+    <p class="orgName">Electoral Commission</p>
   
     <div class="profile-section">
         <div class="profile-dropdown">
@@ -31,11 +30,7 @@
             <a href="#"><i class="fas fa-user"></i> Profile</a>
             <a href="Elecom.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
-        
     </div>
-    
-    
-      
   </div>
   
   <!-- Sidebar -->
@@ -58,7 +53,10 @@
 
   <!-- Main Content -->
   <div class="main-content">
+    <!-- Welcome Message Box -->
     <h3 class="welcome-message">Welcome Back, Redjan Phil</h3>
+
+    <video src="https://ustpstratcomm.github.io/banner_embed/banner.mp4" autoplay loop muted class="homVid"></video>
 
     <div class="calendar">
         <header>
@@ -75,8 +73,9 @@
         </div>
         <div class="dates" id="dates"></div>
       </div>
-</div>
+  </div>
 
+  <!-- JavaScript Files -->
   <script src="function/dashboard.js"></script>
   <script src="function/calendar.js"></script>
 </body>
