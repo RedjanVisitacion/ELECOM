@@ -332,3 +332,14 @@ ul {
         padding: 80px 5px 20px 5px;
     }
 }
+
+.disclaimer{
+    color: rgba(240, 25, 25, 0.76);
+    font-family: 'Times New Roman', Times, serif;
+    font-style: bold;
+    font-size: 20px;
+}
+
+.text{
+    color: #3641503d;
+}
