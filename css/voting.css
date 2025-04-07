@@ -25,6 +25,11 @@ body {
   
   button {
     margin: 5px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    transition: background-color 0.3s ease;
   }
   
   button:hover {
@@ -67,10 +72,10 @@ body {
   }
   
   .btn-primary, .btn-secondary, .btn-success, .btn-danger {
-    border-radius: 5px;
     font-size: 16px;
     padding: 10px;
     width: 100%;
+    transition: background-color 0.3s ease;
   }
   
   .d-grid {

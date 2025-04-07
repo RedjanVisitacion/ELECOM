@@ -11,7 +11,7 @@
 
 <body>
   <div class="container py-4">
-    <h1 class="text-center mb-4">Voting System</h1>
+    <h1 class="text-center mb-4">ELECOM Voting System</h1>
 
     <!-- Role Selection Form -->
     <div id="roleSelectionForm">
@@ -50,7 +50,7 @@
 
     <!-- COMELEC Section -->
     <div id="comelecSection" class="d-none">
-      <h2>COMELEC Officer Panel</h2>
+      <h2>ELECOM Officer Panel</h2>
       <div class="row g-2 mb-3">
         <div class="col-md-4">
           <input type="text" id="newCandidate" class="form-control" placeholder="Candidate Name" />
@@ -111,6 +111,13 @@
       currentUser.role = role;
       document.getElementById('roleSelectionForm').classList.add('d-none');
       document.getElementById('loginForm').classList.remove('d-none');
+      
+      // Hide department dropdown for COMELEC Officer role
+      if (role === 'comelec') {
+        document.getElementById('department').classList.add('d-none');
+      } else {
+        document.getElementById('department').classList.remove('d-none');
+      }
     }
 
     function login() {
