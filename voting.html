@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="img/icon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/voting.css" />
+  <title>Voting System</title>
+</head>
+
+<body>
+  <div class="container py-4">
+    <h1 class="text-center mb-4">Voting System</h1>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="text" id="username" class="form-control mb-2" placeholder="Enter username" />
+      <input type="password" id="password" class="form-control mb-2" placeholder="Enter password" />
+      <select id="department" class="form-select mb-3">
+        <option value="">Select Department</option>
+        <option value="IT">IT</option>
+        <option value="Food Processing">Food Processing</option>
+        <option value="Education">Education</option>
+      </select>
+      <div class="d-grid gap-2">
+        <button onclick="login('student')" class="btn btn-primary">Login as Student</button>
+        <button onclick="login('comelec')" class="btn btn-secondary">Login as COMELEC Officer</button>
+      </div>
+    </div>
+
+    <!-- Student Section -->
+    <div id="studentSection" class="d-none">
+      <h2>Welcome, Student</h2>
+      <div id="deptCandidates"></div>
+      <div id="usgCandidates"></div>
+      <div class="text-center mt-4">
+        <button onclick="logout()" class="btn btn-danger">Logout</button>
+      </div>
+    </div>
+
+    <!-- COMELEC Section -->
+    <div id="comelecSection" class="d-none">
+      <h2>COMELEC Officer Panel</h2>
+      <div class="row g-2 mb-3">
+        <div class="col-md-4">
+          <input type="text" id="newCandidate" class="form-control" placeholder="Candidate Name" />
+        </div>
+        <div class="col-md-4">
+          <select id="candidateDept" class="form-select">
+            <option value="USG">USG</option>
+            <option value="IT">IT</option>
+            <option value="Food Processing">Food Processing</option>
+            <option value="Education">Education</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <select id="candidatePosition" class="form-select">
+            <option value="President">President</option>
+            <option value="Vice President">Vice President</option>
+            <option value="GenSec">GenSec</option>
+            <option value="AssSec">AssSec</option>
+            <option value="Treasurer">Treasurer</option>
+            <option value="Auditor">Auditor</option>
+            <option value="PIO">PIO</option>
+            <option value="BTLED Rep">BTLED Rep</option>
+            <option value="BSIT Rep">BSIT Rep</option>
+            <option value="BFPT Rep">BFPT Rep</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="addCandidate()" class="btn btn-success mb-4">Add Candidate</button>
+
+      <h3>All Candidates</h3>
+      <div id="allCandidates" class="mb-3"></div>
+
+      <h3>All Votes</h3>
+      <pre id="results"></pre>
+
+      <div class="text-center mt-4">
+        <button onclick="logout()" class="btn btn-danger">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const candidates = {
+      IT: { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
+      "Food Processing": { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
+      Education: { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
+      USG: {
+        President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [],
+        Auditor: [], PIO: [], "BTLED Rep": [], "BSIT Rep": [], "BFPT Rep": []
+      }
+    };
+
+    const votes = structuredClone(candidates);
+    const voteTracker = {};
+    let currentUser = { role: '', department: '', name: '' };
+
+    function login(role) {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const department = document.getElementById('department').value;
+
+      if (!username || !password || (role === 'student' && !department)) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (password !== "1234") {
+        alert("Incorrect password.");
+        return;
+      }
+
+      currentUser = { role, department, name: username };
+      voteTracker[username] = voteTracker[username] || {};
+
+      document.getElementById('loginForm').classList.add('d-none');
+
+      if (role === 'student') {
+        document.getElementById('studentSection').classList.remove('d-none');
+        showStudentVoting();
+      } else {
+        document.getElementById('comelecSection').classList.remove('d-none');
+        showAllCandidates();
+        showResults();
+      }
+    }
+
+    function showStudentVoting() {
+      const dept = currentUser.department;
+      const voted = voteTracker[currentUser.name];
+      const deptDiv = document.getElementById('deptCandidates');
+      const usgDiv = document.getElementById('usgCandidates');
+      deptDiv.innerHTML = `<h4>${dept} Department Voting</h4>`;
+      usgDiv.innerHTML = `<h4>USG Voting</h4>`;
+
+      for (let pos in candidates[dept]) {
+        if (voted[`${dept}-${pos}`]) {
+          deptDiv.innerHTML += `<p><strong>${pos}:</strong> Already voted.</p>`;
+        } else {
+          deptDiv.innerHTML += `<p><strong>${pos}:</strong></p>`;
+          candidates[dept][pos].forEach(name => {
+            deptDiv.innerHTML += `<button class="btn btn-outline-primary btn-sm m-1" onclick="vote('${dept}', '${pos}', '${name}')">${name}</button>`;
+          });
+        }
+      }
+
+      for (let pos in candidates.USG) {
+        if (voted[`USG-${pos}`]) {
+          usgDiv.innerHTML += `<p><strong>${pos}:</strong> Already voted.</p>`;
+        } else {
+          usgDiv.innerHTML += `<p><strong>${pos}:</strong></p>`;
+          candidates.USG[pos].forEach(name => {
+            usgDiv.innerHTML += `<button class="btn btn-outline-success btn-sm m-1" onclick="vote('USG', '${pos}', '${name}')">${name}</button>`;
+          });
+        }
+      }
+    }
+
+    function vote(group, position, name) {
+      const user = currentUser.name;
+      const key = `${group}-${position}`;
+      if (voteTracker[user][key]) {
+        alert("You have already voted for this position.");
+        return;
+      }
+
+      votes[group][position][name] = (votes[group][position][name] || 0) + 1;
+      voteTracker[user][key] = true;
+      alert(`You voted for ${name} as ${position} in ${group}.`);
+      showStudentVoting();
+    }
+
+    function addCandidate() {
+      const name = document.getElementById('newCandidate').value.trim();
+      const dept = document.getElementById('candidateDept').value;
+      const pos = document.getElementById('candidatePosition').value;
+
+      if (!name || !dept || !pos) {
+        alert("Please fill in all candidate details.");
+        return;
+      }
+
+      candidates[dept][pos].push(name);
+      alert(`${name} added to ${pos} in ${dept}.`);
+      showAllCandidates();
+      showResults();
+    }
+
+    function showAllCandidates() {
+      const div = document.getElementById('allCandidates');
+      div.innerHTML = '';
+      for (let dept in candidates) {
+        div.innerHTML += `<h5>${dept}</h5>`;
+        for (let pos in candidates[dept]) {
+          const list = candidates[dept][pos].map(n => `<li>${n}</li>`).join('');
+          div.innerHTML += `<strong>${pos}:</strong><ul>${list}</ul>`;
+        }
+      }
+    }
+
+    function showResults() {
+      let output = '';
+      for (let dept in votes) {
+        output += `${dept}:\n`;
+        for (let pos in votes[dept]) {
+          output += `  ${pos}:\n`;
+          for (let name in votes[dept][pos]) {
+            output += `    ${name}: ${votes[dept][pos][name]} votes\n`;
+          }
+        }
+        output += '\n';
+      }
+      document.getElementById('results').textContent = output;
+    }
+
+    function logout() {
+      currentUser = { role: '', department: '', name: '' };
+      document.getElementById('loginForm').classList.remove('d-none');
+      document.getElementById('studentSection').classList.add('d-none');
+      document.getElementById('comelecSection').classList.add('d-none');
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+      document.getElementById('department').value = '';
+    }
+  </script>
+</body>
+</html>
