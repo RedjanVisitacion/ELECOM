@@ -13,10 +13,19 @@
   <div class="container py-4">
     <h1 class="text-center mb-4">Voting System</h1>
 
+    <!-- Role Selection Form -->
+    <div id="roleSelectionForm">
+      <h2>Choose Role</h2>
+      <div class="d-grid gap-2">
+        <button onclick="selectRole('student')" class="btn btn-primary">I am a Student</button>
+        <button onclick="selectRole('comelec')" class="btn btn-secondary">I am a COMELEC Officer</button>
+      </div>
+    </div>
+
     <!-- Login Form -->
-    <div id="loginForm">
+    <div id="loginForm" class="d-none">
       <h2>Login</h2>
-      <input type="text" id="username" class="form-control mb-2" placeholder="Enter username" />
+      <input type="text" id="id" class="form-control mb-2" placeholder="Enter ID" />
       <input type="password" id="password" class="form-control mb-2" placeholder="Enter password" />
       <select id="department" class="form-select mb-3">
         <option value="">Select Department</option>
@@ -25,8 +34,7 @@
         <option value="Education">Education</option>
       </select>
       <div class="d-grid gap-2">
-        <button onclick="login('student')" class="btn btn-primary">Login as Student</button>
-        <button onclick="login('comelec')" class="btn btn-secondary">Login as COMELEC Officer</button>
+        <button onclick="login()" class="btn btn-primary">Login</button>
       </div>
     </div>
 
@@ -48,7 +56,7 @@
           <input type="text" id="newCandidate" class="form-control" placeholder="Candidate Name" />
         </div>
         <div class="col-md-4">
-          <select id="candidateDept" class="form-select">
+          <select id="candidateDept" class="form-select" onchange="updatePositions()">
             <option value="USG">USG</option>
             <option value="IT">IT</option>
             <option value="Food Processing">Food Processing</option>
@@ -64,9 +72,9 @@
             <option value="Treasurer">Treasurer</option>
             <option value="Auditor">Auditor</option>
             <option value="PIO">PIO</option>
-            <option value="BTLED Rep">BTLED Rep</option>
-            <option value="BSIT Rep">BSIT Rep</option>
-            <option value="BFPT Rep">BFPT Rep</option>
+            <option value="BTLED Rep" class="rep-option">BTLED Rep</option>
+            <option value="BSIT Rep" class="rep-option">BSIT Rep</option>
+            <option value="BFPT Rep" class="rep-option">BFPT Rep</option>
           </select>
         </div>
       </div>
@@ -90,21 +98,27 @@
       "Food Processing": { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
       Education: { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
       USG: {
-        President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [],
-        Auditor: [], PIO: [], "BTLED Rep": [], "BSIT Rep": [], "BFPT Rep": []
+        President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [], 
+        "BTLED Rep": [], "BSIT Rep": [], "BFPT Rep": []
       }
     };
 
     const votes = structuredClone(candidates);
     const voteTracker = {};
-    let currentUser = { role: '', department: '', name: '' };
+    let currentUser = { role: '', department: '', id: '' };
 
-    function login(role) {
-      const username = document.getElementById('username').value;
+    function selectRole(role) {
+      currentUser.role = role;
+      document.getElementById('roleSelectionForm').classList.add('d-none');
+      document.getElementById('loginForm').classList.remove('d-none');
+    }
+
+    function login() {
+      const id = document.getElementById('id').value;
       const password = document.getElementById('password').value;
       const department = document.getElementById('department').value;
 
-      if (!username || !password || (role === 'student' && !department)) {
+      if (!id || !password || (currentUser.role === 'student' && !department)) {
         alert("Please fill in all fields.");
         return;
       }
@@ -114,12 +128,12 @@
         return;
       }
 
-      currentUser = { role, department, name: username };
-      voteTracker[username] = voteTracker[username] || {};
+      currentUser = { ...currentUser, department, id };
+      voteTracker[id] = voteTracker[id] || {};
 
       document.getElementById('loginForm').classList.add('d-none');
 
-      if (role === 'student') {
+      if (currentUser.role === 'student') {
         document.getElementById('studentSection').classList.remove('d-none');
         showStudentVoting();
       } else {
@@ -129,9 +143,20 @@
       }
     }
 
+    function updatePositions() {
+      const department = document.getElementById('candidateDept').value;
+      const repOptions = document.querySelectorAll('.rep-option');
+
+      if (department !== 'USG') {
+        repOptions.forEach(option => option.classList.add('d-none'));
+      } else {
+        repOptions.forEach(option => option.classList.remove('d-none'));
+      }
+    }
+
     function showStudentVoting() {
       const dept = currentUser.department;
-      const voted = voteTracker[currentUser.name];
+      const voted = voteTracker[currentUser.id];
       const deptDiv = document.getElementById('deptCandidates');
       const usgDiv = document.getElementById('usgCandidates');
       deptDiv.innerHTML = `<h4>${dept} Department Voting</h4>`;
@@ -161,7 +186,7 @@
     }
 
     function vote(group, position, name) {
-      const user = currentUser.name;
+      const user = currentUser.id;
       const key = `${group}-${position}`;
       if (voteTracker[user][key]) {
         alert("You have already voted for this position.");
@@ -218,11 +243,11 @@
     }
 
     function logout() {
-      currentUser = { role: '', department: '', name: '' };
-      document.getElementById('loginForm').classList.remove('d-none');
+      currentUser = { role: '', department: '', id: '' };
+      document.getElementById('roleSelectionForm').classList.remove('d-none');
       document.getElementById('studentSection').classList.add('d-none');
       document.getElementById('comelecSection').classList.add('d-none');
-      document.getElementById('username').value = '';
+      document.getElementById('id').value = '';
       document.getElementById('password').value = '';
       document.getElementById('department').value = '';
     }
