@@ -103,116 +103,13 @@
 </div>
 
 
-  <script src="function/voting.js"></script>
+  
   
   <script>
-    function login() {
-  const id = document.getElementById('id').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const department = document.getElementById('department')?.value;
-
-  if (!id || !password) {
-    alert("Please enter your ID and password.");
-    return;
-  }
-
-  const storedUser = JSON.parse(localStorage.getItem(id));
-
-  if (!storedUser) {
-    alert("User not found.");
-    return;
-  }
-
-  if (storedUser.password !== password) {
-    alert("Incorrect password.");
-    return;
-  }
-
-  if (storedUser.role === 'student' && !department) {
-    alert("Please select your department.");
-    return;
-  }
-
-  // Set currentUser properly
-  currentUser = storedUser;
-  currentUser.id = id; // 🔑 used for password change lookup
-
-  if (currentUser.role === 'student') {
-    currentUser.department = department;
-  }
-
-  voteTracker[id] = voteTracker[id] || {};
-  document.getElementById('loginForm').classList.add('d-none');
-
-  if (currentUser.role === 'student') {
-    document.getElementById('studentSection').classList.remove('d-none');
-    showStudentVoting();
-  } else {
-    document.getElementById('comelecSection').classList.remove('d-none');
-    showAllCandidates();
-    showResults();
-  }
-}
-
-
-
-function changePassword() {
-  const currentPassword = document.getElementById('currentPassword').value.trim();
-  const newPassword = document.getElementById('newPassword').value.trim();
-  const confirmPassword = document.getElementById('confirmPassword').value.trim();
-
-  if (!currentUser || !currentUser.id) {
-    alert("No user is currently logged in.");
-    return;
-  }
-
-  const userData = JSON.parse(localStorage.getItem(currentUser.id));
-
-  if (!userData || !userData.password) {
-    alert("No password found for this user.");
-    return;
-  }
-
-  if (currentPassword !== userData.password) {
-    alert("Current password is incorrect.");
-    return;
-  }
-
-  if (newPassword !== confirmPassword) {
-    alert("New passwords do not match.");
-    return;
-  }
-
-  // Update password in localStorage
-  userData.password = newPassword;
-  localStorage.setItem(currentUser.id, JSON.stringify(userData));
-  currentUser.password = newPassword;
-
-  alert("Password changed successfully!");
-
-  document.getElementById('changePasswordForm').classList.add('d-none');
-
-  if (currentUser.role === 'student') {
-    document.getElementById('studentSection').classList.remove('d-none');
-    showStudentVoting();
-  } else {
-    document.getElementById('comelecSection').classList.remove('d-none');
-    showAllCandidates();
-    showResults();
-  }
-}
-
-
-
-
-const user = {
-  id: "20231234",
-  password: "1234",
-  role: "student", // or "comelec"
-  department: "BSIT"
-};
-localStorage.setItem(user.id, JSON.stringify(user));
+  
 
   </script>
+
+<script src="function/voting.js"></script>
 </body>
 </html>

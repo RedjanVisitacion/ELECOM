@@ -103,86 +103,13 @@
 </div>
 
 
-  <script src="function/voting.js"></script>
+  
   
   <script>
-    // Show the change password form
-function showChangePasswordForm() {
-  document.getElementById('changePasswordForm').classList.remove('d-none');
-  document.getElementById('studentSection').classList.add('d-none');
-  document.getElementById('comelecSection').classList.add('d-none');
-}
-
-// Cancel the password change and go back to user's section
-function cancelPasswordChange() {
-  document.getElementById('changePasswordForm').classList.add('d-none');
   
-  if (currentUser && currentUser.role === 'student') {
-    document.getElementById('studentSection').classList.remove('d-none');
-  } else if (currentUser && currentUser.role === 'comelec') {
-    document.getElementById('comelecSection').classList.remove('d-none');
-  }
-}
 
-// Handle changing the password for the current logged-in user only-------------------
-function changePassword() {
-  const currentPassword = document.getElementById('currentPassword').value.trim();
-  const newPassword = document.getElementById('newPassword').value.trim();
-  const confirmPassword = document.getElementById('confirmPassword').value.trim();
-
-  if (!currentUser || !currentUser.username) {
-    alert("No user is currently logged in.");
-    return;
-  }
-
-  const userData = JSON.parse(localStorage.getItem(currentUser.username));
-
-  if (!userData || !userData.password) {
-    alert("No password found for this user.");
-    return;
-  }
-
-  if (currentPassword !== userData.password) {
-    alert("Current password is incorrect.");
-    return;
-  }
-
-  if (newPassword !== confirmPassword) {
-    alert("New passwords do not match.");
-    return;
-  }
-
-  // Update password
-  userData.password = newPassword;
-  localStorage.setItem(currentUser.username, JSON.stringify(userData));
-  currentUser.password = newPassword;
-
-  alert("Password changed successfully!");
-
-  // Hide form and show section
-  document.getElementById('changePasswordForm').classList.add('d-none');
-
-  if (currentUser.role === 'student') {
-    document.getElementById('studentSection').classList.remove('d-none');
-    showStudentVoting();
-  } else {
-    document.getElementById('comelecSection').classList.remove('d-none');
-    showAllCandidates();
-    showResults();
-  }
-}
-//----------------------------------------------------------------------------------
-
-
-//User------------------------------------------------------------------------------
-const user = {
-  username: "20231234",
-  password: "1234",
-  role: "student", // or "comelec"
-  department: "BSIT"
-};
-localStorage.setItem(user.username, JSON.stringify(user));
-//-----------------------------------------------------------------------------------
   </script>
+
+<script src="function/voting.js"></script>
 </body>
 </html>

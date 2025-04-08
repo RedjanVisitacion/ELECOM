@@ -174,22 +174,153 @@ function logout() {
 
 
 
-//-----------------// CHANGE PASSWORD FORM //-----------------------//
+ // Login function
+ function login() {
+  const id = document.getElementById('id').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const department = document.getElementById('department')?.value;
 
-    // Show the change password form
-    function showChangePasswordForm() {
-      document.getElementById('changePasswordForm').classList.remove('d-none');
-      document.getElementById('studentSection').classList.add('d-none');
-      document.getElementById('comelecSection').classList.add('d-none');
-    }
-    
-    // Cancel the password change and go back to user's section
-    function cancelPasswordChange() {
-      document.getElementById('changePasswordForm').classList.add('d-none');
-      
-      if (currentUser && currentUser.role === 'student') {
-        document.getElementById('studentSection').classList.remove('d-none');
-      } else if (currentUser && currentUser.role === 'comelec') {
-        document.getElementById('comelecSection').classList.remove('d-none');
-      }
-    }
+  if (!id || !password) {
+    alert("Please enter your ID and password.");
+    return;
+  }
+
+  const storedUser = JSON.parse(localStorage.getItem(id));
+
+  if (!storedUser) {
+    alert("User not found.");
+    return;
+  }
+
+  if (storedUser.password !== password) {
+    alert("Incorrect password.");
+    return;
+  }
+
+  // If the user is a student, department must be selected
+  if (storedUser.role === 'student' && !department) {
+    alert("Please select your department.");
+    return;
+  }
+
+  // Set currentUser based on the stored user and override department if needed
+  currentUser = storedUser;
+  currentUser.id = id;  // Save the user ID for future reference (password change, etc.)
+
+  if (currentUser.role === 'student') {
+    currentUser.department = department;  // Department is only set for students
+  }
+
+  voteTracker[id] = voteTracker[id] || {};
+  document.getElementById('loginForm').classList.add('d-none');
+
+  // Show the correct section based on role
+  if (currentUser.role === 'student') {
+    document.getElementById('studentSection').classList.remove('d-none');
+    showStudentVoting();
+  } else if (currentUser.role === 'comelec') {
+    document.getElementById('comelecSection').classList.remove('d-none');
+    showAllCandidates();
+    showResults();
+  }
+}
+
+// Handle role selection - only students should select department
+function selectRole(role) {
+  currentUser.role = role;
+  document.getElementById('roleSelectionForm').classList.add('d-none');
+  document.getElementById('loginForm').classList.remove('d-none');
+
+  if (role === 'comelec') {
+    document.getElementById('department').classList.add('d-none'); // Hide department for COMELEC
+  } else {
+    document.getElementById('department').classList.remove('d-none'); // Show department for students
+  }
+}
+
+
+
+// Show the change password form
+function showChangePasswordForm() {
+  document.getElementById('changePasswordForm').classList.remove('d-none');
+  document.getElementById('studentSection').classList.add('d-none');
+  document.getElementById('comelecSection').classList.add('d-none');
+}
+
+// Cancel the password change and go back to user's section
+function cancelPasswordChange() {
+  document.getElementById('changePasswordForm').classList.add('d-none');
+  
+  if (currentUser && currentUser.role === 'student') {
+    document.getElementById('studentSection').classList.remove('d-none');
+  } else if (currentUser && currentUser.role === 'comelec') {
+    document.getElementById('comelecSection').classList.remove('d-none');
+  }
+}
+
+// Handle changing the password for the current logged-in user only
+function changePassword() {
+  const currentPassword = document.getElementById('currentPassword').value.trim();
+  const newPassword = document.getElementById('newPassword').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+  if (!currentUser || !currentUser.id) {
+    alert("No user is currently logged in.");
+    return;
+  }
+
+  const userData = JSON.parse(localStorage.getItem(currentUser.id));
+
+  if (!userData || !userData.password) {
+    alert("No password found for this user.");
+    return;
+  }
+
+  if (currentPassword !== userData.password) {
+    alert("Current password is incorrect.");
+    return;
+  }
+
+  if (newPassword !== confirmPassword) {
+    alert("New passwords do not match.");
+    return;
+  }
+
+  // Update password in localStorage
+  userData.password = newPassword;
+  localStorage.setItem(currentUser.id, JSON.stringify(userData));
+  currentUser.password = newPassword;
+
+  alert("Password changed successfully!");
+
+  // Hide form and show section again
+  document.getElementById('changePasswordForm').classList.add('d-none');
+
+  if (currentUser.role === 'student') {
+    document.getElementById('studentSection').classList.remove('d-none');
+    showStudentVoting(); // Assuming this function handles what should happen after login
+  } else if (currentUser.role === 'comelec') {
+    document.getElementById('comelecSection').classList.remove('d-none');
+    showAllCandidates(); // Assuming this function handles what should happen for COMELEC
+    showResults();
+  }
+}
+
+
+
+// Create student account
+const studentUser = {
+  id: "20231234",
+  password: "1234",
+  role: "student",
+  department: "BSIT"
+};
+localStorage.setItem(studentUser.id, JSON.stringify(studentUser));
+
+// Create COMELEC account
+const comelecUser = {
+  id: "comelec001",
+  password: "admin123",
+  role: "comelec"
+};
+localStorage.setItem(comelecUser.id, JSON.stringify(comelecUser));
