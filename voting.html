@@ -11,266 +11,208 @@
 
 <body>
   <div class="container py-4">
-    <h1 class="text-center mb-4">ELECOM Voting System</h1>
-    <img src="img/icon.png" alt="use data to see photo" class="img-logo">
+    <h1 class="text-center mb-4">ELECOM Voting System</h1><img src="img/icon.png" alt="use data to see photo" class="img-logo">
+
+    <!-- Role selection -->
+<div id="roleSelectionForm">
+  <button onclick="selectRole('student')">Student</button>
+  <button onclick="selectRole('comelec')">COMELEC</button>
+</div>
+
+<!-- Login form -->
+<div id="loginForm" class="d-none">
+  <input type="text" id="id" placeholder="ID">
+  <input type="password" id="password" placeholder="Password">
+
+  <div id="departmentContainer">
+    <select id="department">
+      <option value="">--Select Department--</option>
+      <option value="BSIT">BSIT</option>
+      <option value="BTLED">BTLED</option>
+      <option value="BFPT">BFPT</option>
+    </select>
+  </div>
+
+  <button onclick="login()">Login</button>
+</div>
 
 
-    <!-- Role Selection Form -->
-    <div id="roleSelectionForm">
-      <h2>Choose Role</h2>
-      <div class="d-grid gap-2">
-        <button onclick="selectRole('student')" class="btn btn-primary">I am a Student</button>
-        <button onclick="selectRole('comelec')" class="btn btn-secondary">I am a COMELEC Officer</button>
-      </div>
+   <!-- Student Section -->
+<div id="studentSection" class="d-none">
+  <h2>Welcome, Student</h2>
+  <div id="deptCandidates"></div>
+  <div id="usgCandidates"></div>
+  <div class="text-center mt-4">
+    <button onclick="logout()" class="btn btn-danger">Logout</button>
+    <button onclick="showChangePasswordForm()" class="btn btn-warning ms-2">Change Password</button>
+  </div>
+</div>
+
+<!-- COMELEC Section -->
+<div id="comelecSection" class="d-none">
+  <h2>ELECOM Officer Panel</h2>
+  <div class="row g-2 mb-3">
+    <div class="col-md-4">
+      <input type="text" id="newCandidate" class="form-control" placeholder="Candidate Name" />
     </div>
-
-    <!-- Login Form -->
-    <div id="loginForm" class="d-none">
-      <h2>Login</h2>
-      <input type="text" id="id" class="form-control mb-2" placeholder="Enter ID" />
-      <input type="password" id="password" class="form-control mb-2" placeholder="Enter password" />
-      <select id="department" class="form-select mb-3">
-        <option value="">Select Department</option>
+    <div class="col-md-4">
+      <select id="candidateDept" class="form-select" onchange="updatePositions()">
+        <option value="USG">USG</option>
         <option value="IT">IT</option>
         <option value="Food Processing">Food Processing</option>
         <option value="Education">Education</option>
       </select>
-      <div class="d-grid gap-2">
-        <button onclick="login()" class="btn btn-primary">Login</button>
-      </div>
     </div>
-
-    <!-- Student Section -->
-    <div id="studentSection" class="d-none">
-      <h2>Welcome, Student</h2>
-      <div id="deptCandidates"></div>
-      <div id="usgCandidates"></div>
-      <div class="text-center mt-4">
-        <button onclick="logout()" class="btn btn-danger">Logout</button>
-      </div>
-    </div>
-
-    <!-- COMELEC Section -->
-    <div id="comelecSection" class="d-none">
-      <h2>ELECOM Officer Panel</h2>
-      <div class="row g-2 mb-3">
-        <div class="col-md-4">
-          <input type="text" id="newCandidate" class="form-control" placeholder="Candidate Name" />
-        </div>
-        <div class="col-md-4">
-          <select id="candidateDept" class="form-select" onchange="updatePositions()">
-            <option value="USG">USG</option>
-            <option value="IT">IT</option>
-            <option value="Food Processing">Food Processing</option>
-            <option value="Education">Education</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <select id="candidatePosition" class="form-select">
-            <option value="President">President</option>
-            <option value="Vice President">Vice President</option>
-            <option value="GenSec">GenSec</option>
-            <option value="AssSec">AssSec</option>
-            <option value="Treasurer">Treasurer</option>
-            <option value="Auditor">Auditor</option>
-            <option value="PIO">PIO</option>
-            <option value="BTLED Rep" class="rep-option">BTLED Rep</option>
-            <option value="BSIT Rep" class="rep-option">BSIT Rep</option>
-            <option value="BFPT Rep" class="rep-option">BFPT Rep</option>
-          </select>
-        </div>
-      </div>
-      <button onclick="addCandidate()" class="btn btn-success mb-4">Add Candidate</button>
-
-      <h3>All Candidates</h3>
-      <div id="allCandidates" class="mb-3"></div>
-
-      <h3>All Votes</h3>
-      <pre id="results"></pre>
-
-      <div class="text-center mt-4">
-        <button onclick="logout()" class="btn btn-danger">Logout</button>
-      </div>
+    <div class="col-md-4">
+      <select id="candidatePosition" class="form-select">
+        <option value="President">President</option>
+        <option value="Vice President">Vice President</option>
+        <option value="GenSec">GenSec</option>
+        <option value="AssSec">AssSec</option>
+        <option value="Treasurer">Treasurer</option>
+        <option value="Auditor">Auditor</option>
+        <option value="PIO">PIO</option>
+        <option value="BTLED Rep" class="rep-option">BTLED Rep</option>
+        <option value="BSIT Rep" class="rep-option">BSIT Rep</option>
+        <option value="BFPT Rep" class="rep-option">BFPT Rep</option>
+      </select>
     </div>
   </div>
+  <button onclick="addCandidate()" class="btn btn-success mb-4">Add Candidate</button>
 
+  <h3>All Candidates</h3>
+  <div id="allCandidates" class="mb-3"></div>
+
+  <h3>All Votes</h3>
+  <pre id="results"></pre>
+
+  <div class="text-center mt-4">
+    <button onclick="logout()" class="btn btn-danger">Logout</button>
+    <button onclick="showChangePasswordForm()" class="btn btn-warning ms-2">Change Password</button>
+  </div>
+</div>
+
+<!-- Password Change Form -->
+<div id="changePasswordForm" class="d-none">
+  <h3>Change Password</h3>
+  <input type="password" id="currentPassword" class="form-control mb-2" placeholder="Current Password" />
+  <input type="password" id="newPassword" class="form-control mb-2" placeholder="New Password" />
+  <input type="password" id="confirmPassword" class="form-control mb-2" placeholder="Confirm New Password" />
+  <button onclick="changePassword()" class="btn btn-success mb-3">Change Password</button>
+  <button onclick="cancelPasswordChange()" class="btn btn-secondary">Cancel</button>
+</div>
+
+
+  <script src="function/voting.js"></script>
+  
   <script>
-    const candidates = {
-      IT: { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
-      "Food Processing": { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
-      Education: { President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [] },
-      USG: {
-        President: [], "Vice President": [], GenSec: [], AssSec: [], Treasurer: [], Auditor: [], PIO: [], 
-        "BTLED Rep": [], "BSIT Rep": [], "BFPT Rep": []
-      }
-    };
-
-    const votes = structuredClone(candidates);
-    const voteTracker = {};
-    let currentUser = { role: '', department: '', id: '' };
-
-    function selectRole(role) {
-      currentUser.role = role;
-      document.getElementById('roleSelectionForm').classList.add('d-none');
-      document.getElementById('loginForm').classList.remove('d-none');
-      
-      if (role === 'comelec') {
-        document.getElementById('department').classList.add('d-none');
-      } else {
-        document.getElementById('department').classList.remove('d-none');
-      }
-    }
-
     function login() {
-      const id = document.getElementById('id').value;
-      const password = document.getElementById('password').value;
-      const department = document.getElementById('department').value;
+  const id = document.getElementById('id').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const department = document.getElementById('department')?.value;
 
-      if (!id || !password || (currentUser.role === 'student' && !department)) {
-        alert("Please fill in all fields.");
-        return;
-      }
+  if (!id || !password) {
+    alert("Please enter your ID and password.");
+    return;
+  }
 
-      if (password !== "1234") {
-        alert("Incorrect password.");
-        return;
-      }
+  const storedUser = JSON.parse(localStorage.getItem(id));
 
-      currentUser = { ...currentUser, department, id };
-      voteTracker[id] = voteTracker[id] || {};
+  if (!storedUser) {
+    alert("User not found.");
+    return;
+  }
 
-      document.getElementById('loginForm').classList.add('d-none');
+  if (storedUser.password !== password) {
+    alert("Incorrect password.");
+    return;
+  }
 
-      if (currentUser.role === 'student') {
-        document.getElementById('studentSection').classList.remove('d-none');
-        showStudentVoting();
-      } else {
-        document.getElementById('comelecSection').classList.remove('d-none');
-        showAllCandidates();
-        showResults();
-      }
-    }
+  if (storedUser.role === 'student' && !department) {
+    alert("Please select your department.");
+    return;
+  }
 
-    function updatePositions() {
-      const department = document.getElementById('candidateDept').value;
-      const repOptions = document.querySelectorAll('.rep-option');
+  // Set currentUser properly
+  currentUser = storedUser;
+  currentUser.id = id; // 🔑 used for password change lookup
 
-      if (department !== 'USG') {
-        repOptions.forEach(option => option.classList.add('d-none'));
-      } else {
-        repOptions.forEach(option => option.classList.remove('d-none'));
-      }
-    }
+  if (currentUser.role === 'student') {
+    currentUser.department = department;
+  }
 
-    function showStudentVoting() {
-      const dept = currentUser.department;
-      const voted = voteTracker[currentUser.id];
-      const deptDiv = document.getElementById('deptCandidates');
-      const usgDiv = document.getElementById('usgCandidates');
-      deptDiv.innerHTML = `<h4>${dept} Department Voting</h4>`;
-      usgDiv.innerHTML = `<h4>USG Voting</h4>`;
+  voteTracker[id] = voteTracker[id] || {};
+  document.getElementById('loginForm').classList.add('d-none');
 
-      for (let pos in candidates[dept]) {
-        if (voted[`${dept}-${pos}`]) {
-          deptDiv.innerHTML += `<p><strong>${pos}:</strong> Already voted.</p>`;
-        } else {
-          deptDiv.innerHTML += `<p><strong>${pos}:</strong></p>`;
-          candidates[dept][pos].forEach(name => {
-            deptDiv.innerHTML += `<button class="btn btn-outline-primary btn-sm m-1" onclick="vote('${dept}', '${pos}', '${name}')">${name}</button>`;
-          });
-        }
-      }
+  if (currentUser.role === 'student') {
+    document.getElementById('studentSection').classList.remove('d-none');
+    showStudentVoting();
+  } else {
+    document.getElementById('comelecSection').classList.remove('d-none');
+    showAllCandidates();
+    showResults();
+  }
+}
 
-      for (let pos in candidates.USG) {
-        if (voted[`USG-${pos}`]) {
-          usgDiv.innerHTML += `<p><strong>${pos}:</strong> Already voted.</p>`;
-        } else {
-          usgDiv.innerHTML += `<p><strong>${pos}:</strong></p>`;
-          candidates.USG[pos].forEach(name => {
-            usgDiv.innerHTML += `<button class="btn btn-outline-success btn-sm m-1" onclick="vote('USG', '${pos}', '${name}')">${name}</button>`;
-          });
-        }
-      }
-    }
 
-    function vote(group, position, name) {
-      const user = currentUser.id;
-      const key = `${group}-${position}`;
-      if (voteTracker[user][key]) {
-        alert("You have already voted for this position.");
-        return;
-      }
 
-      votes[group][position][name] = (votes[group][position][name] || 0) + 1;
-      voteTracker[user][key] = true;
-      alert(`You voted for ${name} as ${position} in ${group}.`);
-      showStudentVoting();
-    }
+function changePassword() {
+  const currentPassword = document.getElementById('currentPassword').value.trim();
+  const newPassword = document.getElementById('newPassword').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-    function addCandidate() {
-      const name = document.getElementById('newCandidate').value.trim();
-      const dept = document.getElementById('candidateDept').value;
-      const pos = document.getElementById('candidatePosition').value;
+  if (!currentUser || !currentUser.id) {
+    alert("No user is currently logged in.");
+    return;
+  }
 
-      if (!name || !dept || !pos) {
-        alert("Please fill in all candidate details.");
-        return;
-      }
+  const userData = JSON.parse(localStorage.getItem(currentUser.id));
 
-      candidates[dept][pos].push(name);
-      alert(`${name} added to ${pos} in ${dept}.`);
-      showAllCandidates();
-      showResults();
-    }
+  if (!userData || !userData.password) {
+    alert("No password found for this user.");
+    return;
+  }
 
-    function removeCandidate(department, position, name) {
-      const index = candidates[department][position].indexOf(name);
-      if (index !== -1) {
-        candidates[department][position].splice(index, 1);
-        alert(`${name} removed from ${position} in ${department}.`);
-        showAllCandidates();
-        showResults();
-      }
-    }
+  if (currentPassword !== userData.password) {
+    alert("Current password is incorrect.");
+    return;
+  }
 
-    function showAllCandidates() {
-      const div = document.getElementById('allCandidates');
-      div.innerHTML = '';
-      for (let dept in candidates) {
-        div.innerHTML += `<h5>${dept}</h5>`;
-        for (let pos in candidates[dept]) {
-          const list = candidates[dept][pos].map(n => {
-            return `<li>${n} <button class="btn btn-danger btn-sm ms-2" onclick="removeCandidate('${dept}', '${pos}', '${n}')">Remove</button></li>`;
-          }).join('');
-          div.innerHTML += `<strong>${pos}:</strong><ul>${list}</ul>`;
-        }
-      }
-    }
+  if (newPassword !== confirmPassword) {
+    alert("New passwords do not match.");
+    return;
+  }
 
-    function showResults() {
-      let output = '';
-      for (let dept in votes) {
-        output += `${dept}:\n`;
-        for (let pos in votes[dept]) {
-          output += `  ${pos}:\n`;
-          for (let name in votes[dept][pos]) {
-            output += `    ${name}: ${votes[dept][pos][name]} votes\n`;
-          }
-        }
-        output += '\n';
-      }
-      document.getElementById('results').textContent = output;
-    }
+  // Update password in localStorage
+  userData.password = newPassword;
+  localStorage.setItem(currentUser.id, JSON.stringify(userData));
+  currentUser.password = newPassword;
 
-    function logout() {
-      currentUser = { role: '', department: '', id: '' };
-      document.getElementById('roleSelectionForm').classList.remove('d-none');
-      document.getElementById('studentSection').classList.add('d-none');
-      document.getElementById('comelecSection').classList.add('d-none');
-      document.getElementById('id').value = '';
-      document.getElementById('password').value = '';
-      document.getElementById('department').value = '';
-    }
+  alert("Password changed successfully!");
+
+  document.getElementById('changePasswordForm').classList.add('d-none');
+
+  if (currentUser.role === 'student') {
+    document.getElementById('studentSection').classList.remove('d-none');
+    showStudentVoting();
+  } else {
+    document.getElementById('comelecSection').classList.remove('d-none');
+    showAllCandidates();
+    showResults();
+  }
+}
+
+
+
+
+const user = {
+  id: "20231234",
+  password: "1234",
+  role: "student", // or "comelec"
+  department: "BSIT"
+};
+localStorage.setItem(user.id, JSON.stringify(user));
+
   </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+/* General Body Styles */
 body {
     background-color: #f4f7fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -122,6 +123,34 @@ pre {
     font-size: 14px;
 }
 
+/* Change Password Button Styling */
+#changePasswordForm button {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    background-color: #2ecc71; /* Green for success */
+    border-color: #27ae60; /* Slightly darker green */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#changePasswordForm button:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+}
+
+#changePasswordForm .btn-secondary {
+    background-color: #f39c12; /* Orange color for cancel */
+    border-color: #e67e22;
+    margin-top: 10px;
+}
+
+#changePasswordForm .btn-secondary:hover {
+    background-color: #e67e22;
+    transform: translateY(-2px);
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .container {
@@ -181,7 +210,7 @@ pre {
     }
 }
 
-
+/* Logo and Header Styling */
 h1.text-center {
     font-size: 2.5rem;
     font-weight: 600;
@@ -224,3 +253,6 @@ h1.text-center {
         width: 100px;
     }
 }
+
+
+
