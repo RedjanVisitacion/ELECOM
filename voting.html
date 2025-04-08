@@ -112,7 +112,6 @@
       document.getElementById('roleSelectionForm').classList.add('d-none');
       document.getElementById('loginForm').classList.remove('d-none');
       
-      // Hide department dropdown for COMELEC Officer role
       if (role === 'comelec') {
         document.getElementById('department').classList.add('d-none');
       } else {
@@ -222,13 +221,25 @@
       showResults();
     }
 
+    function removeCandidate(department, position, name) {
+      const index = candidates[department][position].indexOf(name);
+      if (index !== -1) {
+        candidates[department][position].splice(index, 1);
+        alert(`${name} removed from ${position} in ${department}.`);
+        showAllCandidates();
+        showResults();
+      }
+    }
+
     function showAllCandidates() {
       const div = document.getElementById('allCandidates');
       div.innerHTML = '';
       for (let dept in candidates) {
         div.innerHTML += `<h5>${dept}</h5>`;
         for (let pos in candidates[dept]) {
-          const list = candidates[dept][pos].map(n => `<li>${n}</li>`).join('');
+          const list = candidates[dept][pos].map(n => {
+            return `<li>${n} <button class="btn btn-danger btn-sm ms-2" onclick="removeCandidate('${dept}', '${pos}', '${n}')">Remove</button></li>`;
+          }).join('');
           div.innerHTML += `<strong>${pos}:</strong><ul>${list}</ul>`;
         }
       }
