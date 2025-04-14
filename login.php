@@ -4,7 +4,11 @@ include_once 'connection.php';
 
 // Ensure required fields are set
 if (!isset($_POST['id'], $_POST['password'], $_POST['role'])) {
-  echo json_encode(["success" => false, "message" => "Missing required fields."]);
+  echo json_encode([
+    "success" => false,
+    "message" => "Missing required fields.",
+    "debug" => $_POST // Show received POST values for debugging
+  ]);
   exit();
 }
 
@@ -19,30 +23,33 @@ if (empty($id) || empty($password) || empty($role)) {
   exit();
 }
 
-// Prepare and execute query
-$sql = "SELECT * FROM users WHERE id = ? AND password = ? AND role = ?";
-$stmt = $con->prepare($sql);
-$stmt->bind_param("sss", $id, $password, $role);
-$stmt->execute();
-$result = $stmt->get_result();
+// Check if user already exists
+$check_sql = "SELECT * FROM users WHERE id = ?";
+$check_stmt = $con->prepare($check_sql);
+$check_stmt->bind_param("s", $id);
+$check_stmt->execute();
+$check_result = $check_stmt->get_result();
 
-if ($result->num_rows === 1) {
-  $user = $result->fetch_assoc();
+if ($check_result->num_rows > 0) {
+  echo json_encode(["success" => false, "message" => "User ID already exists."]);
+  exit();
+}
+$check_stmt->close();
 
-  if ($role === "student" && $user['department'] !== $department) {
-    echo json_encode(["success" => false, "message" => "Wrong department."]);
-  } else {
-    $_SESSION['user'] = $user;
-    echo json_encode(["success" => true]);
-  }
+// Insert user
+$insert_sql = "INSERT INTO users (id, password, role, department) VALUES (?, ?, ?, ?)";
+$insert_stmt = $con->prepare($insert_sql);
+$insert_stmt->bind_param("ssss", $id, $password, $role, $department);
+
+if ($insert_stmt->execute()) {
+  echo json_encode(["success" => true, "message" => "Registration successful."]);
 } else {
-  echo json_encode(["success" => false, "message" => "Invalid ID, password, or role."]);
+  echo json_encode(["success" => false, "message" => "Registration failed."]);
 }
 
-$stmt->close();
+$insert_stmt->close();
 $con->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,11 +57,11 @@ $con->close();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <title>Login - Voting System</title>
+  <title>Register - Voting System</title>
 </head>
 <body>
   <div class="container py-4">
-    <h1 class="text-center mb-4">ELECOM Voting System</h1>
+    <h1 class="text-center mb-4">Register to ELECOM Voting System</h1>
 
     <div id="roleSelectionForm">
       <h2>Choose Role</h2>
@@ -64,8 +71,8 @@ $con->close();
       </div>
     </div>
 
-    <div id="loginForm" class="d-none mt-4">
-      <h2>Login</h2>
+    <div id="registerForm" class="d-none mt-4">
+      <h2>Register</h2>
       <input type="text" id="id" class="form-control mb-2" placeholder="Enter ID" />
       <input type="password" id="password" class="form-control mb-2" placeholder="Enter password" />
       <select id="department" class="form-select mb-3">
@@ -75,7 +82,7 @@ $con->close();
         <option value="Education">Education</option>
       </select>
       <div class="d-grid gap-2">
-        <button onclick="login()" class="btn btn-primary">Login</button>
+        <button onclick="register()" class="btn btn-success">Register</button>
       </div>
     </div>
   </div>
@@ -86,51 +93,54 @@ $con->close();
     function selectRole(selectedRole) {
       role = selectedRole;
       document.getElementById("roleSelectionForm").classList.add("d-none");
-      document.getElementById("loginForm").classList.remove("d-none");
+      document.getElementById("registerForm").classList.remove("d-none");
 
-      const departmentField = document.getElementById("department");
-      departmentField.classList.toggle("d-none", role === "comelec");
+      if (role === "comelec") {
+        document.getElementById("department").classList.add("d-none");
+      } else {
+        document.getElementById("department").classList.remove("d-none");
+      }
     }
 
-    function login() {
-      const id = document.getElementById("id").value;
-      const password = document.getElementById("password").value;
-      const department = document.getElementById("department").value;
+    function register() {
+      const id = document.getElementById("id").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const department = document.getElementById("department").value.trim();
 
       if (!id || !password || (role === 'student' && !department)) {
-        alert("Please fill in all fields.");
+        alert("Please fill in all required fields.");
         return;
       }
 
-      fetch("login.php", {
+      const data = new URLSearchParams();
+      data.append("id", id);
+      data.append("password", password);
+      data.append("role", role);
+      if (role === "student") {
+        data.append("department", department);
+      }
+
+      fetch("register.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          id,
-          password,
-          role,
-          department
-        })
+        body: data
       })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          const user = {
-            role: role,
-            id: id,
-            department: role === "student" ? department : ""
-          };
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          window.location.href = "voting.html";
+          alert("Registration successful!");
+          window.location.href = "login.html";
         } else {
-          alert(data.message || "Login failed");
+          alert(data.message);
+          console.log("Debug:", data.debug); // 🔍 Show values received by PHP
         }
       })
       .catch(err => {
-        alert("Something went wrong.");
         console.error(err);
+        alert("An error occurred during registration.");
       });
     }
   </script>
+
 </body>
 </html>
