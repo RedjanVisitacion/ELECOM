@@ -1,26 +1,49 @@
-
 <?php
+session_start();
+include_once 'connection.php';
 
-  session_start();
-  include_once 'connection.php';
+// Ensure required fields are set
+if (!isset($_POST['id'], $_POST['password'], $_POST['role'])) {
+  echo json_encode(["success" => false, "message" => "Missing required fields."]);
+  exit();
+}
 
+$id = $_POST['id'];
+$password = $_POST['password'];
+$role = $_POST['role'];
+$department = isset($_POST['department']) ? $_POST['department'] : null;
 
-  // Error handling for connection
-  if (!$con) {
-    die("Connection failed: " . mysqli_connect_error());
+// Validate inputs are not empty
+if (empty($id) || empty($password) || empty($role)) {
+  echo json_encode(["success" => false, "message" => "All fields are required."]);
+  exit();
+}
+
+// Prepare and execute query
+$sql = "SELECT * FROM users WHERE id = ? AND password = ? AND role = ?";
+$stmt = $con->prepare($sql);
+$stmt->bind_param("sss", $id, $password, $role);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+  $user = $result->fetch_assoc();
+
+  if ($role === "student" && $user['department'] !== $department) {
+    echo json_encode(["success" => false, "message" => "Wrong department."]);
+  } else {
+    $_SESSION['user'] = $user;
+    echo json_encode(["success" => true]);
   }
+} else {
+  echo json_encode(["success" => false, "message" => "Invalid ID, password, or role."]);
+}
 
-  $con->close();
+$stmt->close();
+$con->close();
 ?>
 
 
-
-
-
-
-
-
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,19 +102,34 @@
         return;
       }
 
-      if (password !== "1234") {
-        alert("Incorrect password.");
-        return;
-      }
-
-      const user = {
-        role: role,
-        id: id,
-        department: role === "student" ? department : ""
-      };
-
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      window.location.href = "voting.html";
+      fetch("login.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          id,
+          password,
+          role,
+          department
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const user = {
+            role: role,
+            id: id,
+            department: role === "student" ? department : ""
+          };
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          window.location.href = "voting.html";
+        } else {
+          alert(data.message || "Login failed");
+        }
+      })
+      .catch(err => {
+        alert("Something went wrong.");
+        console.error(err);
+      });
     }
   </script>
 </body>
