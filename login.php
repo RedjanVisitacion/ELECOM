@@ -1,3 +1,25 @@
+
+<?php
+
+session_start();
+include_once 'connection.php';
+
+
+// Error handling for connection
+if (!$con) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+$con->close();
+?>
+
+
+
+
+
+
+
+
 <!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
