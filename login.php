@@ -1,16 +1,16 @@
 
 <?php
 
-session_start();
-include_once 'connection.php';
+  session_start();
+  include_once 'connection.php';
 
 
-// Error handling for connection
-if (!$con) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+  // Error handling for connection
+  if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
 
-$con->close();
+  $con->close();
 ?>
 
 
